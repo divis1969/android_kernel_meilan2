@@ -152,7 +152,7 @@ kal_int32 PMIC_IMM_GetCurrent(void)
 	wake_unlock(&pmicAuxadc_irq_lock);
 	mutex_unlock(&pmic_adc_mutex);
 
-	PMICLOG("[PMIC_IMM_GetCurrent(share lock)] raw batsns:%d raw isense:%d batsns:%d isense:%d iCharging:%d cnt:%d\n", batsns,isense,ADC_BAT_SENSE,ADC_I_SENSE,ICharging,count);
+	//PMICLOG("[PMIC_IMM_GetCurrent(share lock)] raw batsns:%d raw isense:%d batsns:%d isense:%d iCharging:%d cnt:%d\n", batsns,isense,ADC_BAT_SENSE,ADC_I_SENSE,ICharging,count);
 
 	return ICharging;
 
@@ -447,7 +447,7 @@ kal_uint32 PMIC_IMM_GetOneChannelValue(mt6328_adc_ch_list_enum dwChannel, int de
 	wake_unlock(&pmicAuxadc_irq_lock);
 	mutex_unlock(&pmic_adc_mutex);
 
-       PMICLOG("[AUXADC] ch=%d raw=%d data=%d \n", dwChannel, ret_data,adc_result);
+       //PMICLOG("[AUXADC] ch=%d raw=%d data=%d \n", dwChannel, ret_data,adc_result);
 
 	//return ret_data;
 	return adc_result;

@@ -52,7 +52,7 @@ static inline u16 musb_readw(const void __iomem *addr, unsigned offset)
 		unsigned long flags = 0;
 		spin_lock_irqsave(&usb_io_lock, flags);
 		usb_enable_clock(true);
-		DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
+		//DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
 		rc = readw(addr + offset);
 		usb_enable_clock(false);
 		spin_unlock_irqrestore(&usb_io_lock, flags);
@@ -70,7 +70,7 @@ static inline u32 musb_readl(const void __iomem *addr, unsigned offset)
 		unsigned long flags = 0;
 		spin_lock_irqsave(&usb_io_lock, flags);
 		usb_enable_clock(true);
-		DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
+		//DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
 		rc = readl(addr + offset);
 		usb_enable_clock(false);
 		spin_unlock_irqrestore(&usb_io_lock, flags);
@@ -87,7 +87,7 @@ static inline void musb_writew(void __iomem *addr, unsigned offset, u16 data)
 		unsigned long flags = 0;
 		spin_lock_irqsave(&usb_io_lock, flags);
 		usb_enable_clock(true);
-		DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
+		//DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
 		writew(data, addr + offset);
 		usb_enable_clock(false);
 		spin_unlock_irqrestore(&usb_io_lock, flags);
@@ -102,7 +102,7 @@ static inline void musb_writel(void __iomem *addr, unsigned offset, u32 data)
 		unsigned long flags = 0;
 		spin_lock_irqsave(&usb_io_lock, flags);
 		usb_enable_clock(true);
-		DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
+		//DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
 		writel(data, addr + offset);
 		usb_enable_clock(false);
 		spin_unlock_irqrestore(&usb_io_lock, flags);
@@ -119,7 +119,7 @@ static inline u8 musb_readb(const void __iomem *addr, unsigned offset)
 		unsigned long flags = 0;
 		spin_lock_irqsave(&usb_io_lock, flags);
 		usb_enable_clock(true);
-		DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
+		//DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
 		rc = readb(addr + offset);
 		usb_enable_clock(false);
 		spin_unlock_irqrestore(&usb_io_lock, flags);
@@ -135,7 +135,7 @@ static inline void musb_writeb(void __iomem *addr, unsigned offset, u8 data)
 		unsigned long flags = 0;
 		spin_lock_irqsave(&usb_io_lock, flags);
 		usb_enable_clock(true);
-		DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
+		//DBG(0, "[MUSB]:access %s function when usb clock is off 0x%X\n", __func__, offset);
 		writeb(data, addr + offset);
 		usb_enable_clock(false);
 		spin_unlock_irqrestore(&usb_io_lock, flags);

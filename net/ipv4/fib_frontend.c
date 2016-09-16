@@ -1043,7 +1043,7 @@ static int fib_inetaddr_event(struct notifier_block *this, unsigned long event, 
 	switch (event) {
 	case NETDEV_UP:
 		#ifdef CONFIG_MTK_NET_LOGGING 
-		printk(KERN_INFO "[mtk_net][RTlog insert]   fib_inetaddr_event()  %s NETDEV_UP!\n", ifa->ifa_dev->dev->name);
+		//printk(KERN_INFO "[mtk_net][RTlog insert]   fib_inetaddr_event()  %s NETDEV_UP!\n", ifa->ifa_dev->dev->name);
 		#endif
 		fib_add_ifaddr(ifa);
 #ifdef CONFIG_IP_ROUTE_MULTIPATH
@@ -1054,7 +1054,7 @@ static int fib_inetaddr_event(struct notifier_block *this, unsigned long event, 
 		break;
 	case NETDEV_DOWN:
 		#ifdef CONFIG_MTK_NET_LOGGING 
-		printk(KERN_INFO "[mtk_net][RTlog delete]   fib_inetaddr_event()  %s NETDEV_DOWN!\n", ifa->ifa_dev->dev->name);
+		//printk(KERN_INFO "[mtk_net][RTlog delete]   fib_inetaddr_event()  %s NETDEV_DOWN!\n", ifa->ifa_dev->dev->name);
 		#endif
 		fib_del_ifaddr(ifa, NULL);
 		atomic_inc(&net->ipv4.dev_addr_genid);
@@ -1090,7 +1090,7 @@ static int fib_netdev_event(struct notifier_block *this, unsigned long event, vo
 	switch (event) {
 	case NETDEV_UP:
 		#ifdef CONFIG_MTK_NET_LOGGING 
-		printk(KERN_INFO "[mtk_net][RTlog insert]   fib_netdev_event()  %s NETDEV_UP!\n", dev->name);
+		//printk(KERN_INFO "[mtk_net][RTlog insert]   fib_netdev_event()  %s NETDEV_UP!\n", dev->name);
 		#endif
 		for_ifa(in_dev) {
 			fib_add_ifaddr(ifa);
@@ -1103,7 +1103,7 @@ static int fib_netdev_event(struct notifier_block *this, unsigned long event, vo
 		break;
 	case NETDEV_DOWN:
 		#ifdef CONFIG_MTK_NET_LOGGING 
-		printk(KERN_INFO "[mtk_net][RTlog delete]   fib_netdev_event()  %s NETDEV_DOWN!\n", dev->name);
+		//printk(KERN_INFO "[mtk_net][RTlog delete]   fib_netdev_event()  %s NETDEV_DOWN!\n", dev->name);
 		#endif
 		fib_disable_ip(dev, 0);
 		break;

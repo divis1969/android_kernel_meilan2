@@ -152,13 +152,13 @@ int fuse_iolog_print(void)
         }
     }
 
-    if (i>0)
-        pr_warn("[BLOCK_TAG] FUSEIO %s\n", buf);
+    //if (i>0)
+    //    pr_warn("[BLOCK_TAG] FUSEIO %s\n", buf);
 
     return ptr - &buf[0];
 
 overflow:
-    pr_warn("[BLOCK_TAG] FUSEIO log buffer overflow \n");
+    //pr_warn("[BLOCK_TAG] FUSEIO log buffer overflow \n");
 
     return -1;
 }

@@ -81,8 +81,8 @@ static int ion_fb_heap_phys(struct ion_heap *heap,
 		IONMSG("[ion_fb_heap_phys]: Error. Buffer not configured.\n");
 		return -EFAULT;	/* Buffer not configured. */
 	}
-	IONMSG("[ion_fb_heap_phys]: eModuleID = %d, len = 0x%x, pa = 0x%lx.\n",
-			pBufferInfo->eModuleID, (unsigned int)buffer->size, pBufferInfo->priv_phys);
+	//IONMSG("[ion_fb_heap_phys]: eModuleID = %d, len = 0x%x, pa = 0x%lx.\n",
+	//		pBufferInfo->eModuleID, (unsigned int)buffer->size, pBufferInfo->priv_phys);
 	
 	/*Allocate MVA*/
 	mutex_lock(&(pBufferInfo->lock));
@@ -102,7 +102,7 @@ static int ion_fb_heap_phys(struct ion_heap *heap,
 	mutex_unlock(&(pBufferInfo->lock));
 	*len = buffer->size;
 	
-	IONMSG("[ion_fb_heap_phys]: MVA = 0x%x, len = 0x%x.\n", pBufferInfo->MVA, (unsigned int)buffer->size);
+	//IONMSG("[ion_fb_heap_phys]: MVA = 0x%x, len = 0x%x.\n", pBufferInfo->MVA, (unsigned int)buffer->size);
 
 	return 0;
 }

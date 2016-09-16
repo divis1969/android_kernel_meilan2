@@ -216,10 +216,10 @@ static void update_vcore_pwrap_cmd(struct opp_profile *opp_ctrl_table)
 	mt_cpufreq_set_pmic_cmd(PMIC_WRAP_PHASE_DEEPIDLE, IDX_DI_VCORE_TRANS1, vcore_uv_to_pmic(trans[TRANS1]));
 	mt_cpufreq_set_pmic_cmd(PMIC_WRAP_PHASE_DEEPIDLE, IDX_DI_VCORE_LPM,    vcore_uv_to_pmic(opp_ctrl_table[OPPI_LOW_PWR].vcore_uv));
 
-	vcorefs_crit("HPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_PERF].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_PERF].vcore_uv));
-	vcorefs_crit("TRANS2: %u (0x%x)\n", trans[TRANS2], vcore_uv_to_pmic(trans[TRANS2]));
-	vcorefs_crit("TRANS1: %u (0x%x)\n", trans[TRANS1], vcore_uv_to_pmic(trans[TRANS1]));
-	vcorefs_crit("LPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_LOW_PWR].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_LOW_PWR].vcore_uv));
+	//vcorefs_crit("HPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_PERF].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_PERF].vcore_uv));
+	//vcorefs_crit("TRANS2: %u (0x%x)\n", trans[TRANS2], vcore_uv_to_pmic(trans[TRANS2]));
+	//vcorefs_crit("TRANS1: %u (0x%x)\n", trans[TRANS1], vcore_uv_to_pmic(trans[TRANS1]));
+	//vcorefs_crit("LPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_LOW_PWR].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_LOW_PWR].vcore_uv));
 }
 
 /**************************************

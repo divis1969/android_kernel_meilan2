@@ -385,7 +385,7 @@ int cpu_xgpt_register_timer(unsigned int id,irqreturn_t (*func)(int irq, void *d
 			return ret;
 		}
 		
-		printk("%s:%s register irq (%d) ok\n",__func__,name ,irq_id);
+		//printk("%s:%s register irq (%d) ok\n",__func__,name ,irq_id);
 		
 		return 0; 	
 }

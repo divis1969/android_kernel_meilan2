@@ -1089,7 +1089,7 @@ void mt_eint_registration(unsigned int eint_num, unsigned int flag,
               void (EINT_FUNC_PTR) (void), unsigned int is_auto_umask)
 {
     if (eint_num < EINT_MAX_CHANNEL) {
-        printk("eint register for %d\n", eint_num);
+        //printk("eint register for %d\n", eint_num);
         spin_lock(&eint_lock);
         mt_eint_mask(eint_num);
         

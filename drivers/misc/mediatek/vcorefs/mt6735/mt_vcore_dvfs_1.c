@@ -214,10 +214,10 @@ static void update_vcore_pwrap_cmd(struct opp_profile *opp_ctrl_table)
 	mt_cpufreq_set_pmic_cmd(PMIC_WRAP_PHASE_DEEPIDLE, IDX_DI_VCORE_TRANS1, vcore_uv_to_pmic(trans[TRANS1]));
 	mt_cpufreq_set_pmic_cmd(PMIC_WRAP_PHASE_DEEPIDLE, IDX_DI_VCORE_LPM,    vcore_uv_to_pmic(opp_ctrl_table[OPPI_LOW_PWR].vcore_uv));
 
-	vcorefs_crit("HPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_PERF].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_PERF].vcore_uv));
-	vcorefs_crit("TRANS2: %u (0x%x)\n", trans[TRANS2], vcore_uv_to_pmic(trans[TRANS2]));
-	vcorefs_crit("TRANS1: %u (0x%x)\n", trans[TRANS1], vcore_uv_to_pmic(trans[TRANS1]));
-	vcorefs_crit("LPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_LOW_PWR].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_LOW_PWR].vcore_uv));
+	//vcorefs_crit("HPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_PERF].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_PERF].vcore_uv));
+	//vcorefs_crit("TRANS2: %u (0x%x)\n", trans[TRANS2], vcore_uv_to_pmic(trans[TRANS2]));
+	//vcorefs_crit("TRANS1: %u (0x%x)\n", trans[TRANS1], vcore_uv_to_pmic(trans[TRANS1]));
+	//vcorefs_crit("LPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_LOW_PWR].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_LOW_PWR].vcore_uv));
 }
 
 /**************************************
@@ -255,10 +255,10 @@ static int set_vcore_with_opp(enum dvfs_kicker kicker, unsigned int opp)
 
 	pwrctrl->curr_vcore_uv = get_vcore_uv();
 
-	vcorefs_crit_mask("opp: %u, vcore: %u(%u) %s\n",
-				opp,
-				opp_ctrl_table[opp].vcore_uv, pwrctrl->curr_vcore_uv,
-				pwrctrl->vcore_dvs ? "" : "[X]");
+	//vcorefs_crit_mask("opp: %u, vcore: %u(%u) %s\n",
+	//			opp,
+	//			opp_ctrl_table[opp].vcore_uv, pwrctrl->curr_vcore_uv,
+	//			pwrctrl->vcore_dvs ? "" : "[X]");
 
 	if (!pwrctrl->vcore_dvs)
 		return PASS;
@@ -274,11 +274,11 @@ static int set_freq_with_opp(enum dvfs_kicker kicker, unsigned int opp)
 	struct opp_profile *opp_ctrl_table = opp_table;
 	int r = FAIL;
 
-	vcorefs_crit_mask("opp: %u, faxi: %u(%u), fvenc: %u(%u) %s\n",
+	/*vcorefs_crit_mask("opp: %u, faxi: %u(%u), fvenc: %u(%u) %s\n",
 				opp,
 				opp_ctrl_table[opp].axi_khz, pwrctrl->curr_axi_khz,
 				opp_ctrl_table[opp].venc_khz, pwrctrl->curr_venc_khz,
-				pwrctrl->freq_dfs ? "" : "[X]");
+				pwrctrl->freq_dfs ? "" : "[X]");*/
 
 	if (!pwrctrl->freq_dfs)
 		return PASS;
@@ -348,13 +348,13 @@ static unsigned int find_min_opp(enum dvfs_kicker kicker)
 	unsigned int min = UINT_MAX;
 	int i;
 
-	vcorefs_crit_mask("[%d, %d, %d, %d, %d, %d]\n",
+	/*vcorefs_crit_mask("[%d, %d, %d, %d, %d, %d]\n",
 				kicker_ctrl_table[KIR_GPU].opp,
 				kicker_ctrl_table[KIR_MM].opp,
 				kicker_ctrl_table[KIR_EMIBW].opp,
 				kicker_ctrl_table[KIR_SDIO].opp,
 				kicker_ctrl_table[KIR_USB].opp,
-				kicker_ctrl_table[KIR_SYSFS].opp);
+				kicker_ctrl_table[KIR_SYSFS].opp); */
 
 	/* find the min opp from kicker table */
 	for (i = 0; i < NUM_KICKER; i++) {
@@ -517,8 +517,8 @@ static int kick_dvfs_by_opp_index(enum dvfs_kicker kicker, unsigned int opp)
 	int r;
 	struct vcorefs_profile *pwrctrl = &vcorefs_ctrl;
 
-	vcorefs_crit_mask("kicker: %u, opp: %u, curr_opp: %u(%u)\n",
-			  kicker, opp, vcorefs_curr_opp, vcorefs_prev_opp);
+	//vcorefs_crit_mask("kicker: %u, opp: %u, curr_opp: %u(%u)\n",
+	//		  kicker, opp, vcorefs_curr_opp, vcorefs_prev_opp);
 
 	/* try again since previous change is partial success */
 	if (opp == vcorefs_curr_opp && vcorefs_curr_opp != vcorefs_prev_opp)
@@ -546,8 +546,8 @@ static int vcorefs_func_enable_check(enum dvfs_kicker kicker, enum dvfs_opp new_
         struct vcorefs_profile *pwrctrl = &vcorefs_ctrl;
         struct kicker_profile *kicker_ctrl_table = kicker_table;
 
-	vcorefs_crit_mask("feature_en: %u(%d), recover_en: %u, kicker: %u, new_opp: %d(%d)\n",
-			feature_en, pwrctrl->error_code, pwrctrl->recover_en, kicker, new_opp, kicker_ctrl_table[kicker].opp);
+	//vcorefs_crit_mask("feature_en: %u(%d), recover_en: %u, kicker: %u, new_opp: %d(%d)\n",
+	//		feature_en, pwrctrl->error_code, pwrctrl->recover_en, kicker, new_opp, kicker_ctrl_table[kicker].opp);
 
 	if (kicker < KIR_GPU || kicker >= NUM_KICKER)
 		return -ERR_KICKER;

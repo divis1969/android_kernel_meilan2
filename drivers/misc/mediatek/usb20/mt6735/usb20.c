@@ -143,15 +143,15 @@ void vcore_hold(void)
 {
 	int vcore_ret;
 
-	DBG(0, "before releasing\n");
+	//DBG(0, "before releasing\n");
 	while(vcore_releasing);
-	DBG(0, "after releasing\n");
+	//DBG(0, "after releasing\n");
 
 	vcore_ret = vcorefs_request_dvfs_opp(KIR_USB, OPP_0);
 	if(vcore_ret){
 		DBG(0, "hold VCORE fail (%d)\n", vcore_ret);
 	}else{
-		DBG(0, "hold VCORE ok\n");
+		//DBG(0, "hold VCORE ok\n");
 	}
 
 }
@@ -164,7 +164,7 @@ void vcore_workqueue(struct work_struct *work)
 	if(vcore_ret){
 		DBG(0, "workqueue release VCORE fail(%d)\n", vcore_ret);
 	}else{
-		DBG(0, "workqueue release VCORE ok\n");
+		//DBG(0, "workqueue release VCORE ok\n");
 	}
 }
 
@@ -176,7 +176,7 @@ void vcore_release(void)
 	vcore_releasing = 1;
 
 	if(mtk_musb){
-		DBG(0, "mtk_musb:%p\n", mtk_musb);
+		//DBG(0, "mtk_musb:%p\n", mtk_musb);
 		lock_ret = spin_trylock_irqsave(&mtk_musb->lock, flags);
 		if(!lock_ret){
 			DBG(0, "musb lock fail\n");
@@ -185,7 +185,7 @@ void vcore_release(void)
 			vcore_releasing = 0;
 			return;
 		}else{
-			DBG(0, "musb lock get, release it\n");
+			//DBG(0, "musb lock get, release it\n");
 			spin_unlock_irqrestore(&mtk_musb->lock, flags);
 		}
 	}
@@ -193,7 +193,7 @@ void vcore_release(void)
 	if(vcore_ret){
 		DBG(0, "release VCORE fail(%d)\n", vcore_ret);
 	}else{
-		DBG(0, "release VCORE ok\n");
+		//DBG(0, "release VCORE ok\n");
 	}
 
 	vcore_releasing = 0;
@@ -240,7 +240,7 @@ static void musb_do_idle(unsigned long _musb)
 	}
 	spin_unlock_irqrestore(&musb->lock, flags);
 
-    DBG(0, "otg_state %s \n", otg_state_string(musb->xceiv->state));
+    //DBG(0, "otg_state %s \n", otg_state_string(musb->xceiv->state));
 }
 
 static void mt_usb_try_idle(struct musb *musb, unsigned long timeout)
@@ -284,7 +284,7 @@ static void mt_usb_enable(struct musb *musb)
 	unsigned long   flags;
 
 	virt_enable++;
-	DBG(0, "<%d,%d>,<%d,%d,%d,%d>\n", mtk_usb_power, musb->power, virt_enable, virt_disable, real_enable, real_disable);
+	//DBG(0, "<%d,%d>,<%d,%d,%d,%d>\n", mtk_usb_power, musb->power, virt_enable, virt_disable, real_enable, real_disable);
 
 	if (musb->power == true)
 	    return;
@@ -307,7 +307,7 @@ static void mt_usb_enable(struct musb *musb)
 #ifndef FPGA_PLATFORM
 #ifdef CONFIG_ARCH_MT6735
         //enable_pll(UNIVPLL, "USB_PLL");
-        DBG(0,"enable UPLL before connect\n");
+        //DBG(0,"enable UPLL before connect\n");
         vcore_hold();
 #endif
 #endif
@@ -322,7 +322,7 @@ static void mt_usb_enable(struct musb *musb)
 			DBG(0, "in interrupt !!!!!!!!!!!!!!!\n");
 			DBG(0, "in interrupt !!!!!!!!!!!!!!!\n");
 		}
-		DBG(0, "<%d,%d,%d,%d>\n", virt_enable, virt_disable, real_enable, real_disable);
+		//DBG(0, "<%d,%d,%d,%d>\n", virt_enable, virt_disable, real_enable, real_disable);
 		
         up(&power_clock_lock);
     }
@@ -334,7 +334,7 @@ static void mt_usb_enable(struct musb *musb)
 static void mt_usb_disable(struct musb *musb)
 {
 	virt_disable++;
-	DBG(0, "<%d,%d>,<%d,%d,%d,%d>\n", mtk_usb_power, musb->power, virt_enable, virt_disable, real_enable, real_disable);
+	//DBG(0, "<%d,%d>,<%d,%d,%d,%d>\n", mtk_usb_power, musb->power, virt_enable, virt_disable, real_enable, real_disable);
 
 	if (musb->power == false)
 	    return;
@@ -354,12 +354,12 @@ static void mt_usb_disable(struct musb *musb)
 
         mtk_usb_power = false;
 		real_disable++;
-		DBG(0, "<%d,%d,%d,%d>\n", virt_enable, virt_disable, real_enable, real_disable);
+		//DBG(0, "<%d,%d,%d,%d>\n", virt_enable, virt_disable, real_enable, real_disable);
 
 #ifndef FPGA_PLATFORM
 #ifdef CONFIG_ARCH_MT6735
         //disable_pll(UNIVPLL,"USB_PLL");
-        DBG(0, "disable UPLL before disconnect\n");
+        //DBG(0, "disable UPLL before disconnect\n");
 		if(in_interrupt()){
 			DBG(0, "in interrupt !!!!!!!!!!!!!!!\n");
 			DBG(0, "in interrupt !!!!!!!!!!!!!!!\n");
@@ -410,11 +410,11 @@ bool mt_usb_is_device(void)
 
 void mt_usb_connect(void)
 {
-	if(mtk_musb){
-		DBG(0, "is ready %d is_host %d power %d\n", mtk_musb->is_ready, mtk_musb->is_host, mtk_musb->power);
-	}else{
-		DBG(0, "!mtk_musb\n");
-	}
+	//if(mtk_musb){
+	//	DBG(0, "is ready %d is_host %d power %d\n", mtk_musb->is_ready, mtk_musb->is_host, mtk_musb->power);
+	//}else{
+	//	DBG(0, "!mtk_musb\n");
+	//}
     if (!mtk_musb || !mtk_musb->is_ready || mtk_musb->is_host || mtk_musb->power)
         return;
 #ifdef CONFIG_MTK_UART_USB_SWITCH
@@ -424,7 +424,7 @@ void mt_usb_connect(void)
     	}
 #endif	
 
-    DBG(0,"cable_mode=%d\n",cable_mode);
+    //DBG(0,"cable_mode=%d\n",cable_mode);
 #ifdef CONFIG_MTK_KERNEL_POWER_OFF_CHARGING
 	if(g_boot_mode == KERNEL_POWER_OFF_CHARGING_BOOT || g_boot_mode == LOW_POWER_OFF_CHARGING_BOOT){
 		int chgr_type;
@@ -456,9 +456,9 @@ void mt_usb_connect(void)
 
 	if (!wake_lock_active(&mtk_musb->usb_lock)){
 		wake_lock(&mtk_musb->usb_lock);
-		DBG(0, "lock\n");
+		//DBG(0, "lock\n");
 	}else{
-		DBG(0, "already lock\n");
+		//DBG(0, "already lock\n");
 	}
 
 
@@ -557,7 +557,7 @@ bool usb_cable_connected(void)
 #endif
 	
 	charger_type = mt_get_charger_type();
-	DBG(0, "type(%d)\n", charger_type);
+	//DBG(0, "type(%d)\n", charger_type);
 	if(!pmic_intr_enable && mtk_musb->is_ready ){
 		pmic_enable_charger_detection_int(1);
 		pmic_intr_enable = 1;
@@ -607,7 +607,7 @@ void pmic_chrdet_int_en(int is_on)
 void musb_sync_with_bat(struct musb *musb,int usb_state)
 {
 #ifndef FPGA_PLATFORM
-    DBG(0,"BATTERY_SetUSBState, state=%d\n",usb_state);
+    //DBG(0,"BATTERY_SetUSBState, state=%d\n",usb_state);
 	BATTERY_SetUSBState(usb_state);
 	wake_up_bat();
 #endif
@@ -1129,7 +1129,7 @@ vcore_wq = create_freezable_workqueue("usb20_vcore_work");
 
     musb->isr = mt_usb_interrupt;
     musb_writel(musb->mregs,MUSB_HSDMA_INTR,0xff | (0xff << DMA_INTR_UNMASK_SET_OFFSET));
-    DBG(0,"musb platform init %x\n",musb_readl(musb->mregs,MUSB_HSDMA_INTR));
+    //DBG(0,"musb platform init %x\n",musb_readl(musb->mregs,MUSB_HSDMA_INTR));
 
 #ifdef MUSB_QMU_SUPPORT
 	/* FIXME, workaround for device_qmu + host_dma*/

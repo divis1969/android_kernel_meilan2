@@ -19,11 +19,11 @@ extern void __iomem *ap_uart0_base;
 static void HQA_special(void){
 	u8 val;
 	val = USBPHY_READ8(0x18);
-	DBG(0, "HQA, 0x18, before:%x\n", val);
+	//DBG(0, "HQA, 0x18, before:%x\n", val);
 	USBPHY_CLR8(0x18, 0x08);
 	USBPHY_SET8(0x18, 0x06);
 	val = USBPHY_READ8(0x18);
-	DBG(0, "HQA, 0x18, after:%x\n", val);
+	//DBG(0, "HQA, 0x18, after:%x\n", val);
 }
 
 #ifdef FPGA_PLATFORM
@@ -186,7 +186,7 @@ bool usb_enable_clock(bool enable)
 	bool res = TRUE;
 	unsigned long flags;
 	
-	DBG(0, "enable(%d),count(%d),<%d,%d,%d,%d>\n", enable, count, virt_enable, virt_disable, real_enable, real_disable);
+	//DBG(0, "enable(%d),count(%d),<%d,%d,%d,%d>\n", enable, count, virt_enable, virt_disable, real_enable, real_disable);
 
 	spin_lock_irqsave(&musb_reg_clock_lock, flags);
 
@@ -219,7 +219,7 @@ bool usb_enable_clock(bool enable)
 
 	spin_unlock_irqrestore(&musb_reg_clock_lock, flags);
 
-	DBG(0, "enable(%d),count(%d),res(%d),<%d,%d,%d,%d>\n", enable, count, res, virt_enable, virt_disable, real_enable, real_disable);
+	//DBG(0, "enable(%d),count(%d),res(%d),<%d,%d,%d,%d>\n", enable, count, res, virt_enable, virt_disable, real_enable, real_disable);
 	return 1;
 }
 
@@ -264,7 +264,7 @@ static void hs_slew_rate_cal(void){
       value = (unsigned char)(x/1000);
       if((x-value*1000)/100>=5)
         value += 1;
-        printk("[USBPHY]slew calibration:FM_OUT =%lu,x=%lu,value=%d\n",data,x,value);
+        //printk("[USBPHY]slew calibration:FM_OUT =%lu,x=%lu,value=%d\n",data,x,value);
     }
 
   //4 s8: disable Frequency and run clock.
@@ -632,7 +632,7 @@ void usb_phy_recover(void){
 
     hs_slew_rate_cal();
 
-    printk("usb recovery success\n");
+    //printk("usb recovery success\n");
     return;
 }
 
@@ -645,7 +645,7 @@ void Charger_Detect_Init(void)
     udelay(50);
     /* RG_USB20_BC11_SW_EN = 1'b1 */
     USBPHY_SET8(0x1a, 0x80);
-    printk("Charger_Detect_Init\n");
+    //printk("Charger_Detect_Init\n");
 }
 
 void Charger_Detect_Release(void)
@@ -655,7 +655,7 @@ void Charger_Detect_Release(void)
     udelay(1);
     //4 14. turn off internal 48Mhz PLL.
     usb_enable_clock(false);
-    printk("Charger_Detect_Release\n");
+    //printk("Charger_Detect_Release\n");
 }
 
 void usb_phy_context_save(void)

@@ -1697,7 +1697,7 @@ static void larb_backup(struct larb_monitor *h, int larb_idx)
     }
 
     larb_base = gLarbBaseAddr[larb_idx];                                 
-    M4UINFO("larb(%d) backup\n", larb_idx);
+    //M4UINFO("larb(%d) backup\n", larb_idx);
 
 #ifdef M4U_TEE_SERVICE_ENABLE
     if(m4u_tee_en)
@@ -1727,7 +1727,7 @@ static void larb_restore(struct larb_monitor *h, int larb_idx)
     }
 
     larb_base = gLarbBaseAddr[larb_idx];                                 
-    M4UINFO("larb(%d) restore\n", larb_idx);
+    //M4UINFO("larb(%d) restore\n", larb_idx);
 
 #ifdef M4U_TEE_SERVICE_ENABLE
     if(m4u_tee_en)

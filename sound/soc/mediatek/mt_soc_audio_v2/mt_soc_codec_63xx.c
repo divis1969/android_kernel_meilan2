@@ -419,7 +419,7 @@ void Auddrv_Read_Efuse_HPOffset(void)
     int i = 0, j = 0;
     U32 efusevalue[3];
 
-    printk("Auddrv_Read_Efuse_HPOffset(+)\n");
+    //printk("Auddrv_Read_Efuse_HPOffset(+)\n");
 
     //1. enable efuse ctrl engine clock
     ret = pmic_config_interface(0x026C, 0x0040, 0xFFFF, 0);
@@ -463,7 +463,7 @@ void Auddrv_Read_Efuse_HPOffset(void)
 
         //6. read data
         efusevalue[j] = upmu_get_reg_value(0x0C18);
-        printk("HPoffset : efuse[%d]=0x%x\n", j, efusevalue[j]);
+        //printk("HPoffset : efuse[%d]=0x%x\n", j, efusevalue[j]);
         j++;
     }
 
@@ -480,7 +480,7 @@ void Auddrv_Read_Efuse_HPOffset(void)
     RG_AUDHPLFINETRIM_VAUDP15_SPKHP = ((efusevalue[1] >> 15) & 0x1) + ((efusevalue[2] & 0x1) << 1);
     RG_AUDHPRFINETRIM_VAUDP15_SPKHP = ((efusevalue[2] >> 1) & 0x3);
 
-    printk("RG_AUDHPLTRIM_VAUDP15 = %x\n", RG_AUDHPLTRIM_VAUDP15);
+    /*printk("RG_AUDHPLTRIM_VAUDP15 = %x\n", RG_AUDHPLTRIM_VAUDP15);
     printk("RG_AUDHPRTRIM_VAUDP15 = %x\n", RG_AUDHPRTRIM_VAUDP15);
     printk("RG_AUDHPLFINETRIM_VAUDP15 = %x\n", RG_AUDHPLFINETRIM_VAUDP15);
     printk("RG_AUDHPRFINETRIM_VAUDP15 = %x\n", RG_AUDHPRFINETRIM_VAUDP15);
@@ -489,7 +489,7 @@ void Auddrv_Read_Efuse_HPOffset(void)
     printk("RG_AUDHPLFINETRIM_VAUDP15_SPKHP = %x\n", RG_AUDHPLFINETRIM_VAUDP15_SPKHP);
     printk("RG_AUDHPRFINETRIM_VAUDP15_SPKHP = %x\n", RG_AUDHPRFINETRIM_VAUDP15_SPKHP);
 
-    printk("Auddrv_Read_Efuse_HPOffset(-)\n");
+    printk("Auddrv_Read_Efuse_HPOffset(-)\n");*/
 }
 
 EXPORT_SYMBOL(Auddrv_Read_Efuse_HPOffset);

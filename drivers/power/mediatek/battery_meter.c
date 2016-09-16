@@ -985,7 +985,7 @@ void fgauge_construct_battery_profile_init(void)
 				
 				break;
 			}
-			bm_print(BM_LOG_CRTI, "new battery_profile[%d,%d] <%d,%d>\n", i, j, (temp_profile_p + j)->percentage, (temp_profile_p + j)->voltage);
+			//bm_print(BM_LOG_CRTI, "new battery_profile[%d,%d] <%d,%d>\n", i, j, (temp_profile_p + j)->percentage, (temp_profile_p + j)->voltage);
 		}
 		
 		for (j=0; j*2 <= 100; j++) {
@@ -1064,17 +1064,17 @@ void fgauge_construct_battery_profile(kal_int32 temperature, BATTERY_PROFILE_STR
 
 
 	/* Dumpt new battery profile */
-	for (i = 0; i < saddles; i++) {
+	/*for (i = 0; i < saddles; i++) {
 		bm_print(BM_LOG_CRTI, "<DOD,Voltage> at %d = <%d,%d>\r\n",
 			 temperature, (temp_profile_p + i)->percentage,
 			 (temp_profile_p + i)->voltage);
-	}
+	}*/
 
 }
 
 void fgauge_construct_r_table_profile(kal_int32 temperature, R_PROFILE_STRUC_P temp_profile_p)
 {
-	dump_stack();
+	//dump_stack();
 	R_PROFILE_STRUC_P low_profile_p, high_profile_p;
 	kal_int32 low_temperature, high_temperature;
 	int i, saddles;
@@ -1173,11 +1173,11 @@ void fgauge_construct_r_table_profile(kal_int32 temperature, R_PROFILE_STRUC_P t
 	}
 
 	/* Dumpt new r-table profile */
-	for (i = 0; i < saddles; i++) {
-		bm_print(BM_LOG_CRTI, "<Rbat,VBAT> at %d = <%d,%d>\r\n",
-			 temperature, (temp_profile_p + i)->resistance,
-			 (temp_profile_p + i)->voltage);
-	}
+	//for (i = 0; i < saddles; i++) {
+	//	bm_print(BM_LOG_CRTI, "<Rbat,VBAT> at %d = <%d,%d>\r\n",
+	//		 temperature, (temp_profile_p + i)->resistance,
+	//		 (temp_profile_p + i)->voltage);
+	//}
 
 }
 
@@ -1389,8 +1389,8 @@ void dod_init(void)
 	ret = battery_meter_ctrl(BATTERY_METER_CMD_GET_HW_OCV, &gFG_voltage);
 	gFG_capacity_by_v = fgauge_read_capacity_by_v(gFG_voltage);
 
-	bm_print(BM_LOG_CRTI, "[FGADC] get_hw_ocv=%d, HW_SOC=%d, SW_SOC = %d\n",
-		 gFG_voltage, gFG_capacity_by_v, gFG_capacity_by_v_init);
+	//bm_print(BM_LOG_CRTI, "[FGADC] get_hw_ocv=%d, HW_SOC=%d, SW_SOC = %d\n",
+	//	 gFG_voltage, gFG_capacity_by_v, gFG_capacity_by_v_init);
 #if defined(EXTERNAL_SWCHR_SUPPORT)
 	/* compare with hw_ocv & sw_ocv, check if less than or equal to 5% tolerance */
 	if ((abs(gFG_capacity_by_v_init - gFG_capacity_by_v) > 5)
@@ -1400,8 +1400,8 @@ void dod_init(void)
 #endif
 #if defined(HW_FG_FORCE_USE_SW_OCV)
 	gFG_capacity_by_v = gFG_capacity_by_v_init;
-	bm_print(BM_LOG_CRTI, "[FGADC] HW_FG_FORCE_USE_SW_OCV : HW_SOC=%d, SW_SOC = %d\n",
-		 gFG_capacity_by_v, gFG_capacity_by_v_init);
+	//bm_print(BM_LOG_CRTI, "[FGADC] HW_FG_FORCE_USE_SW_OCV : HW_SOC=%d, SW_SOC = %d\n",
+	//	 gFG_capacity_by_v, gFG_capacity_by_v_init);
 #endif
 	/* ------------------------------------------------------------------------------- */
 #endif
@@ -1510,8 +1510,8 @@ void dod_init(void)
 #endif     
 
     
-	bm_print(BM_LOG_CRTI, "[FGADC] g_rtc_fg_soc=%d, gFG_capacity_by_v=%d\n",
-		 g_rtc_fg_soc, gFG_capacity_by_v);
+	//bm_print(BM_LOG_CRTI, "[FGADC] g_rtc_fg_soc=%d, gFG_capacity_by_v=%d\n",
+	//	 g_rtc_fg_soc, gFG_capacity_by_v);
 
 	if (gFG_capacity_by_v == 0 && bat_is_charger_exist() == KAL_TRUE) {
 		gFG_capacity_by_v = 1;
@@ -1529,14 +1529,14 @@ void dod_init(void)
 
 #if defined(CHANGE_TRACKING_POINT)
 	gFG_15_vlot = fgauge_read_v_by_capacity((100 - g_tracking_point));
-	bm_print(BM_LOG_CRTI, "[FGADC] gFG_15_vlot = %dmV\n", gFG_15_vlot);
+	//bm_print(BM_LOG_CRTI, "[FGADC] gFG_15_vlot = %dmV\n", gFG_15_vlot);
 #else
 	/* gFG_15_vlot = fgauge_read_v_by_capacity(86); //14% */
 	gFG_15_vlot = fgauge_read_v_by_capacity((100 - g_tracking_point));
-	bm_print(BM_LOG_CRTI, "[FGADC] gFG_15_vlot = %dmV\n", gFG_15_vlot);
+	//bm_print(BM_LOG_CRTI, "[FGADC] gFG_15_vlot = %dmV\n", gFG_15_vlot);
 	if ((gFG_15_vlot > 3800) || (gFG_15_vlot < 3600)) {
-		bm_print(BM_LOG_CRTI, "[FGADC] gFG_15_vlot(%d) over range, reset to 3700\n",
-			 gFG_15_vlot);
+		//bm_print(BM_LOG_CRTI, "[FGADC] gFG_15_vlot(%d) over range, reset to 3700\n",
+		//	 gFG_15_vlot);
 		gFG_15_vlot = 3700;
 	}
 #endif
@@ -1975,15 +1975,15 @@ kal_int32 fgauge_get_dod0(kal_int32 voltage, kal_int32 temperature, kal_bool bOc
 	/* Re-constructure r-table profile according to current temperature */
 	profile_p_r_table = fgauge_get_profile_r_table(TEMPERATURE_T);
 	if (profile_p_r_table == NULL) {
-		bm_print(BM_LOG_CRTI,
-			 "[FGADC] fgauge_get_profile_r_table : create table fail !\r\n");
+		//bm_print(BM_LOG_CRTI,
+		//	 "[FGADC] fgauge_get_profile_r_table : create table fail !\r\n");
 	}
 	fgauge_construct_r_table_profile(temperature, profile_p_r_table);
 
 	/* Re-constructure battery profile according to current temperature */
 	profile_p = fgauge_get_profile(TEMPERATURE_T);
 	if (profile_p == NULL) {
-		bm_print(BM_LOG_CRTI, "[FGADC] fgauge_get_profile : create table fail !\r\n");
+		//bm_print(BM_LOG_CRTI, "[FGADC] fgauge_get_profile : create table fail !\r\n");
 		return 100;
 	}
 	fgauge_construct_battery_profile(temperature, profile_p);
@@ -2003,8 +2003,8 @@ kal_int32 fgauge_get_dod0(kal_int32 voltage, kal_int32 temperature, kal_bool bOc
 		}
 		/* voltage = voltage + fgauge_compensate_battery_voltage(voltage); //mV */
 		voltage = voltage + fgauge_compensate_battery_voltage_recursion(voltage, 5);	/* mV */
-		bm_print(BM_LOG_CRTI, "[FGADC] compensate_battery_voltage, voltage=%d\r\n",
-			 voltage);
+		//bm_print(BM_LOG_CRTI, "[FGADC] compensate_battery_voltage, voltage=%d\r\n",
+		//	 voltage);
 	}
 	/* If battery voltage is less then mimimum profile voltage, then return 100 */
 	/* If battery voltage is greater then maximum profile voltage, then return 0 */
@@ -2046,12 +2046,12 @@ kal_int32 fgauge_update_dod(void)
 
 	if (gFG_DOD0 > 100) {
 		gFG_DOD0 = 100;
-		bm_print(BM_LOG_FULL, "[fgauge_update_dod] gFG_DOD0 set to 100, gFG_columb=%d\r\n",
-			 gFG_columb);
+		//bm_print(BM_LOG_FULL, "[fgauge_update_dod] gFG_DOD0 set to 100, gFG_columb=%d\r\n",
+		//	 gFG_columb);
 	} else if (gFG_DOD0 < 0) {
 		gFG_DOD0 = 0;
-		bm_print(BM_LOG_FULL, "[fgauge_update_dod] gFG_DOD0 set to 0, gFG_columb=%d\r\n",
-			 gFG_columb);
+		//bm_print(BM_LOG_FULL, "[fgauge_update_dod] gFG_DOD0 set to 0, gFG_columb=%d\r\n",
+		//	 gFG_columb);
 	} else {
 	}
 
@@ -2059,10 +2059,10 @@ kal_int32 fgauge_update_dod(void)
 
 	if (temperature_change == 1) {
 		gFG_BATT_CAPACITY = fgauge_get_Q_max(gFG_temp);
-		bm_print(BM_LOG_CRTI,
-			 "[fgauge_update_dod] gFG_BATT_CAPACITY=%d, gFG_BATT_CAPACITY_aging=%d, gFG_BATT_CAPACITY_init_high_current=%d\r\n",
-			 gFG_BATT_CAPACITY, gFG_BATT_CAPACITY_aging,
-			 gFG_BATT_CAPACITY_init_high_current);
+		//bm_print(BM_LOG_CRTI,
+		//	 "[fgauge_update_dod] gFG_BATT_CAPACITY=%d, gFG_BATT_CAPACITY_aging=%d, gFG_BATT_CAPACITY_init_high_current=%d\r\n",
+		//	 gFG_BATT_CAPACITY, gFG_BATT_CAPACITY_aging,
+		//	 gFG_BATT_CAPACITY_init_high_current);
 		temperature_change = 0;
 	}
 #if 0
@@ -2077,19 +2077,19 @@ kal_int32 fgauge_update_dod(void)
 #else
 	FG_dod_1 = gFG_DOD0 - ((gFG_columb * 100) / gFG_BATT_CAPACITY_aging);
 
-	bm_print(BM_LOG_FULL,
-		 "[fgauge_update_dod] FG_dod_1=%d, adjust_coulomb_counter=%d, gFG_columb=%d, gFG_DOD0=%d, gFG_temp=%d, gFG_BATT_CAPACITY=%d  %d\r\n",
-		 FG_dod_1, adjust_coulomb_counter, gFG_columb, gFG_DOD0, gFG_temp,
-		 gFG_BATT_CAPACITY,gFG_BATT_CAPACITY_aging);
+	//bm_print(BM_LOG_FULL,
+	//	 "[fgauge_update_dod] FG_dod_1=%d, adjust_coulomb_counter=%d, gFG_columb=%d, gFG_DOD0=%d, gFG_temp=%d, gFG_BATT_CAPACITY=%d  %d\r\n",
+	//	 FG_dod_1, adjust_coulomb_counter, gFG_columb, gFG_DOD0, gFG_temp,
+	//	 gFG_BATT_CAPACITY,gFG_BATT_CAPACITY_aging);
 #endif
 	if (FG_dod_1 > 100) {
 		FG_dod_1 = 100;
-		bm_print(BM_LOG_FULL, "[fgauge_update_dod] FG_dod_1 set to 100, gFG_columb=%d\r\n",
-			 gFG_columb);
+		//bm_print(BM_LOG_FULL, "[fgauge_update_dod] FG_dod_1 set to 100, gFG_columb=%d\r\n",
+		//	 gFG_columb);
 	} else if (FG_dod_1 < 0) {
 		FG_dod_1 = 0;
-		bm_print(BM_LOG_FULL, "[fgauge_update_dod] FG_dod_1 set to 0, gFG_columb=%d\r\n",
-			 gFG_columb);
+		//bm_print(BM_LOG_FULL, "[fgauge_update_dod] FG_dod_1 set to 0, gFG_columb=%d\r\n",
+		//	 gFG_columb);
 	} else {
 	}
 
@@ -2333,9 +2333,9 @@ void fgauge_algo_run_init(void)
 	gFG_voltage = gFG_voltage + fgauge_compensate_battery_voltage_recursion(gFG_voltage, 5);	/* mV */
 	gFG_voltage = gFG_voltage + OCV_BOARD_COMPESATE;
 
-	bm_print(BM_LOG_CRTI, "[FGADC] SWOCV : %d,%d,%d,%d,%d,%d\n",
-		 gFG_voltage_init, gFG_voltage, gFG_current, gFG_Is_Charging, gFG_resistance_bat,
-		 gFG_compensate_value);
+	//bm_print(BM_LOG_CRTI, "[FGADC] SWOCV : %d,%d,%d,%d,%d,%d\n",
+	//	 gFG_voltage_init, gFG_voltage, gFG_current, gFG_Is_Charging, gFG_resistance_bat,
+	//	 gFG_compensate_value);
 #ifdef INIT_SOC_BY_SW_SOC
 	charging_enable = KAL_TRUE;
 	battery_charging_control(CHARGING_CMD_ENABLE,&charging_enable);
@@ -2480,7 +2480,7 @@ void fgauge_initialization(void)
 	gFG_capacity_by_v = gFG_capacity;
 
 	gFG_DOD0 = 100 - gFG_capacity;
-	bm_print(BM_LOG_CRTI, "[fgauge_initialization] gFG_DOD0 =%d %d \n",gFG_DOD0,gFG_capacity);
+	//bm_print(BM_LOG_CRTI, "[fgauge_initialization] gFG_DOD0 =%d %d \n",gFG_DOD0,gFG_capacity);
 
 	gFG_BATT_CAPACITY = fgauge_get_Q_max(gFG_temp);
 
@@ -2489,8 +2489,8 @@ void fgauge_initialization(void)
 
 	ret = battery_meter_ctrl(BATTERY_METER_CMD_DUMP_REGISTER, NULL);
 
-	bm_print(BM_LOG_CRTI, "[fgauge_initialization] Done HW_OCV:%d FG_Current:%d FG_CAR:%d tmp=%d capacity=%d Qmax=%d\n",
-		gFG_voltage,gFG_current,gFG_columb,gFG_temp,gFG_capacity,gFG_BATT_CAPACITY);
+	//bm_print(BM_LOG_CRTI, "[fgauge_initialization] Done HW_OCV:%d FG_Current:%d FG_CAR:%d tmp=%d capacity=%d Qmax=%d\n",
+	//	gFG_voltage,gFG_current,gFG_columb,gFG_temp,gFG_capacity,gFG_BATT_CAPACITY);
 
 #if defined(FG_BAT_INT)
 	pmic_register_interrupt_callback(41,fg_bat_int_handler);
@@ -2977,7 +2977,7 @@ kal_int32 battery_meter_initial(void)
 #if defined(SOC_BY_HW_FG)
 		fgauge_initialization();
 		fgauge_algo_run_init();
-		bm_print(BM_LOG_CRTI, "[battery_meter_initial] SOC_BY_HW_FG done\n");
+		//bm_print(BM_LOG_CRTI, "[battery_meter_initial] SOC_BY_HW_FG done\n");
 #endif
 
 #if defined(SOC_BY_SW_FG)
@@ -3043,12 +3043,12 @@ void reset_parameter_dod_change(void)
 void reset_parameter_dod_full(kal_uint32 ui_percentage)
 {
 #if defined(SOC_BY_HW_FG)
-	bm_print(BM_LOG_CRTI, "[battery_meter_reset]1 DOD0=%d,DOD1=%d,ui=%d\n", gFG_DOD0, gFG_DOD1,
-		 ui_percentage);
+	//bm_print(BM_LOG_CRTI, "[battery_meter_reset]1 DOD0=%d,DOD1=%d,ui=%d\n", gFG_DOD0, gFG_DOD1,
+	//	 ui_percentage);
 	gFG_DOD0 = 100 - ui_percentage;
 	gFG_DOD1 = gFG_DOD0;
-	bm_print(BM_LOG_CRTI, "[battery_meter_reset]2 DOD0=%d,DOD1=%d,ui=%d\n", gFG_DOD0, gFG_DOD1,
-		 ui_percentage);
+	//bm_print(BM_LOG_CRTI, "[battery_meter_reset]2 DOD0=%d,DOD1=%d,ui=%d\n", gFG_DOD0, gFG_DOD1,
+	//	 ui_percentage);
 #endif
 
 #if defined(SOC_BY_SW_FG)

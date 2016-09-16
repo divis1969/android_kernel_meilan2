@@ -601,7 +601,7 @@ int gt1x_check_firmware(void)
 	}
 
 	// print update information
-	GTP_INFO("Update type: %s", update_info.update_type == UPDATE_TYPE_HEADER ? "Header" : "File");
+	/*GTP_INFO("Update type: %s", update_info.update_type == UPDATE_TYPE_HEADER ? "Header" : "File");
 	GTP_INFO("Firmware length: %d", update_info.fw_length);
 	GTP_INFO("Firmware product: GT%s", update_info.firmware->pid);
 	GTP_INFO("Firmware patch: %02X%02X%02X", update_info.firmware->version[0], update_info.firmware->version[1], update_info.firmware->version[2]);
@@ -614,7 +614,7 @@ int gt1x_check_firmware(void)
 		GTP_INFO("Length: %d", update_info.firmware->subsystem[i].length);
 		GTP_INFO("Address: 0x%08X", update_info.firmware->subsystem[i].address);
 		GTP_INFO("Offset: %d", update_info.firmware->subsystem[i].offset);
-	}
+	}*/
 
 	return 0;
 }

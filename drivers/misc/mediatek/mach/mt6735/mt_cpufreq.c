@@ -2443,11 +2443,11 @@ static int _mt_cpufreq_set_locked(struct mt_cpu_dvfs *p, unsigned int cur_khz, u
             goto out;
     }
 
-    cpufreq_dbg("@%s(): Vproc = %dmv, freq = %d KHz\n",
-                __func__,
-                (p->ops->get_cur_volt(p)) / 100,
-                p->ops->get_cur_phy_freq(p)
-                );
+    //cpufreq_dbg("@%s(): Vproc = %dmv, freq = %d KHz\n",
+    //            __func__,
+    //            (p->ops->get_cur_volt(p)) / 100,
+    //            p->ops->get_cur_phy_freq(p)
+    //            );
 #ifdef CONFIG_CPU_DVFS_HAS_EXTBUCK
     // SW tracking, print Vsram result
     if (cpu_dvfs_is_extbuck_valid())
@@ -2967,14 +2967,14 @@ static int _mt_cpufreq_setup_power_table(struct mt_cpu_dvfs *p)
     }
 
     /* dump power table */
-    for (i = 0; i < p->nr_opp_tbl * possible_cpu; i++) {
+    /*for (i = 0; i < p->nr_opp_tbl * possible_cpu; i++) {
         cpufreq_info("[%d] = { .cpufreq_khz = %d,\t.cpufreq_ncpu = %d,\t.cpufreq_power = %d }\n",
                 i,
                 p->power_tbl[i].cpufreq_khz,
                 p->power_tbl[i].cpufreq_ncpu,
                 p->power_tbl[i].cpufreq_power
                 );
-    }
+    }*/
 
 #if 0   // unused
 #ifdef CONFIG_THERMAL
@@ -3493,7 +3493,7 @@ static int _mt_cpufreq_init(struct cpufreq_policy *policy)
     if (policy->cpu >= num_possible_cpus())
         return -EINVAL;
 
-    cpufreq_info("@%s: num_possible_cpus: %d\n", __func__, num_possible_cpus());
+    //cpufreq_info("@%s: num_possible_cpus: %d\n", __func__, num_possible_cpus());
 
     policy->shared_type = CPUFREQ_SHARED_TYPE_ANY;
     cpumask_setall(policy->cpus);
@@ -4521,14 +4521,14 @@ static int cpufreq_power_dump_proc_show(struct seq_file *m, void *v)
     for_each_cpu_dvfs(i, p) {
         seq_printf(m, "[%s/%d]\n", p->name, i);
 
-        for (j = 0; j < p->nr_power_tbl; j++) {
+        /*for (j = 0; j < p->nr_power_tbl; j++) {
             seq_printf(m, "[%d] = { .cpufreq_khz = %d,\t.cpufreq_ncpu = %d,\t.cpufreq_power = %d, },\n",
                     j,
                     p->power_tbl[j].cpufreq_khz,
                     p->power_tbl[j].cpufreq_ncpu,
                     p->power_tbl[j].cpufreq_power
                     );
-        }
+        }*/
     }
 
     return 0;

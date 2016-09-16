@@ -55,7 +55,7 @@ void __iomem  *clk_venc_gcon_base;
 //#define MUX_LOG_TOP
 //#define MUX_LOG
 //#define PLL_LOG_TOP
-#define PLL_LOG
+//#define PLL_LOG
 
 #if !defined(CONFIG_MTK_LEGACY)
 #define Bring_Up
@@ -622,7 +622,7 @@ static void sdm_pll_disable_op(struct pll *pll)
 {
 #ifdef PLL_LOG
     //clk_info("[%s]: pll->name=%s\n", __func__, pll->name);
-    clk_dbg("[%s]: pll->name=%s\n", __func__, pll->name);
+    //clk_dbg("[%s]: pll->name=%s\n", __func__, pll->name);
 #endif
 //    if( pll->base_addr == UNIVPLL_CON0 /*|| pll->base_addr == VENCPLL_CON0*/)
 //    {
@@ -1964,7 +1964,7 @@ static void larb_backup(int larb_idx)
     struct larb_monitor *pos;
 
     //clk_info("[%s]: start to backup larb%d\n", __func__, larb_idx);
-    clk_dbg("[%s]: backup larb%d\n", __func__, larb_idx);
+    //clk_dbg("[%s]: backup larb%d\n", __func__, larb_idx);
 
     larb_clk_prepare(larb_idx);
 
@@ -1984,7 +1984,7 @@ static void larb_restore(int larb_idx)
     struct larb_monitor *pos;
 
     //clk_info("[%s]: start to restore larb%d\n", __func__, larb_idx);
-    clk_dbg("[%s]: restore larb%d\n", __func__, larb_idx);
+    //clk_dbg("[%s]: restore larb%d\n", __func__, larb_idx);
 
     larb_clk_prepare(larb_idx);
 

@@ -145,7 +145,7 @@ U32 pmic_read_interface (U32 RegNum, U32 *val, U32 MASK, U32 SHIFT)
     pmic_reg=rdata;
     if(return_value!=0)
     {
-        PMICLOG("[pmic_read_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
+        //PMICLOG("[pmic_read_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
         mutex_unlock(&pmic_access_mutex);
         return return_value;
     }
@@ -178,7 +178,7 @@ U32 pmic_config_interface (U32 RegNum, U32 val, U32 MASK, U32 SHIFT)
     pmic_reg=rdata;
     if(return_value!=0)
     {
-        PMICLOG("[pmic_config_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
+        //PMICLOG("[pmic_config_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
         mutex_unlock(&pmic_access_mutex);
         return return_value;
     }
@@ -191,7 +191,7 @@ U32 pmic_config_interface (U32 RegNum, U32 val, U32 MASK, U32 SHIFT)
     return_value= pwrap_wacs2(1, (RegNum), pmic_reg, &rdata);
     if(return_value!=0)
     {
-        PMICLOG("[pmic_config_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
+        //PMICLOG("[pmic_config_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
         mutex_unlock(&pmic_access_mutex);
         return return_value;
     }
@@ -233,7 +233,7 @@ U32 pmic_read_interface_nolock (U32 RegNum, U32 *val, U32 MASK, U32 SHIFT)
     pmic_reg=rdata;
     if(return_value!=0)
     {
-        PMICLOG("[pmic_read_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
+        //PMICLOG("[pmic_read_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
         mutex_unlock(&pmic_access_mutex);
         return return_value;
     }
@@ -265,7 +265,7 @@ U32 pmic_config_interface_nolock (U32 RegNum, U32 val, U32 MASK, U32 SHIFT)
     pmic_reg=rdata;
     if(return_value!=0)
     {
-        PMICLOG("[pmic_config_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
+        //PMICLOG("[pmic_config_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
         mutex_unlock(&pmic_access_mutex);
         return return_value;
     }
@@ -278,7 +278,7 @@ U32 pmic_config_interface_nolock (U32 RegNum, U32 val, U32 MASK, U32 SHIFT)
     return_value= pwrap_wacs2(1, (RegNum), pmic_reg, &rdata);
     if(return_value!=0)
     {
-        PMICLOG("[pmic_config_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
+        //PMICLOG("[pmic_config_interface] Reg[%x]= pmic_wrap read data fail\n", RegNum);
         mutex_unlock(&pmic_access_mutex);
         return return_value;
     }
@@ -1450,11 +1450,11 @@ void (*low_battery_callback)(LOW_BATTERY_LEVEL);
 
 void register_low_battery_notify( void (*low_battery_callback)(LOW_BATTERY_LEVEL), LOW_BATTERY_PRIO prio_val )
 {
-    PMICLOG("[register_low_battery_notify] start\n");
+    //PMICLOG("[register_low_battery_notify] start\n");
 
     lbcb_tb[prio_val].lbcb = low_battery_callback;
     
-    PMICLOG("[register_low_battery_notify] prio_val=%d\n",prio_val);
+    //PMICLOG("[register_low_battery_notify] prio_val=%d\n",prio_val);
 }
 
 void exec_low_battery_callback(LOW_BATTERY_LEVEL low_battery_level) //0:no limit
@@ -1636,11 +1636,11 @@ void (*battery_oc_callback)(BATTERY_OC_LEVEL);
 
 void register_battery_oc_notify( void (*battery_oc_callback)(BATTERY_OC_LEVEL), BATTERY_OC_PRIO prio_val )
 {
-    PMICLOG("[register_battery_oc_notify] start\n");
+    //PMICLOG("[register_battery_oc_notify] start\n");
 
     occb_tb[prio_val].occb = battery_oc_callback;
     
-    PMICLOG("[register_battery_oc_notify] prio_val=%d\n",prio_val);
+    //PMICLOG("[register_battery_oc_notify] prio_val=%d\n",prio_val);
 }
 
 void exec_battery_oc_callback(BATTERY_OC_LEVEL battery_oc_level) //0:no limit
@@ -1793,11 +1793,11 @@ void (*battery_percent_callback)(BATTERY_PERCENT_LEVEL);
 
 void register_battery_percent_notify( void (*battery_percent_callback)(BATTERY_PERCENT_LEVEL), BATTERY_PERCENT_PRIO prio_val )
 {
-    PMICLOG("[register_battery_percent_notify] start\n");
+    //PMICLOG("[register_battery_percent_notify] start\n");
 
     bpcb_tb[prio_val].bpcb = battery_percent_callback;
     
-    PMICLOG("[register_battery_percent_notify] prio_val=%d\n",prio_val);
+    //PMICLOG("[register_battery_percent_notify] prio_val=%d\n",prio_val);
 
     if( (g_battery_percent_stop==0) && (g_battery_percent_level==1) )
     {
@@ -2835,7 +2835,7 @@ struct wake_lock pmicThread_lock;
 
 void wake_up_pmic(void)
 {
-    PMICLOG("[wake_up_pmic]\r\n");
+    //PMICLOG("[wake_up_pmic]\r\n");
     wake_up_process(pmic_thread_handle);
     wake_lock(&pmicThread_lock);    
 }
@@ -2843,7 +2843,7 @@ EXPORT_SYMBOL(wake_up_pmic);
 
 void mt_pmic_eint_irq(void)
 {
-    PMICLOG("[mt_pmic_eint_irq] receive interrupt\n");
+    //PMICLOG("[mt_pmic_eint_irq] receive interrupt\n");
     wake_up_pmic();
     return ;
 }
@@ -2992,20 +2992,20 @@ void pmic_enable_charger_detection_int(int x)
 	if(x==0)
 	{
 		pmic_rdy=1;
-		PMICLOG("[pmic_enable_charger_detection_int] PMIC\n");
+		//PMICLOG("[pmic_enable_charger_detection_int] PMIC\n");
 	}
 	else if (x==1)
 	{
 		usb_rdy=1;
-		PMICLOG("[pmic_enable_charger_detection_int] USB\n");
+		//PMICLOG("[pmic_enable_charger_detection_int] USB\n");
 	}
 
 
-	PMICLOG("[pmic_enable_charger_detection_int] pmic_rdy=%d usb_rdy=%d\n",pmic_rdy,usb_rdy);
+	//PMICLOG("[pmic_enable_charger_detection_int] pmic_rdy=%d usb_rdy=%d\n",pmic_rdy,usb_rdy);
 	if(pmic_rdy==1 && usb_rdy==1)
 	{
 		wake_up_bat();  
-		PMICLOG("[pmic_enable_charger_detection_int] enable charger detection interrupt\n");
+		//PMICLOG("[pmic_enable_charger_detection_int] enable charger detection interrupt\n");
 	}
 	
 }
@@ -3043,7 +3043,7 @@ static int pmic_thread_kthread(void *x)
 		mutex_lock(&pmic_mutex);
 
 		pwrap_eint_status = pmic_wrap_eint_status();    
-		PMICLOG("[PMIC_INT] pwrap_eint_status=0x%x\n", pwrap_eint_status);
+		//PMICLOG("[PMIC_INT] pwrap_eint_status=0x%x\n", pwrap_eint_status);
 
 		pmic_int_handler();
 
@@ -3053,7 +3053,7 @@ static int pmic_thread_kthread(void *x)
 		for (i = 0; i < ARRAY_SIZE(interrupts); i++) 
 		{
 			int_status_val=upmu_get_reg_value(interrupts[i].address);
-			PMICLOG("[PMIC_INT] after ,int_status_val[0x%x]=0x%x\n", interrupts[i].address,int_status_val);		
+			//PMICLOG("[PMIC_INT] after ,int_status_val[0x%x]=0x%x\n", interrupts[i].address,int_status_val);		
 		}	
 
 

@@ -590,7 +590,7 @@ static int __cpuinit wk_cpu_callback(struct notifier_block *nfb, unsigned long a
 		mpcore_wk_wdt_stop();
 #endif
 		wk_cpu_update_bit_flag(hotcpu, 0);
-		printk("[WDK]cpu %d plug off, kick wdt\n", hotcpu);
+		//printk("[WDK]cpu %d plug off, kick wdt\n", hotcpu);
 		break;
 #endif				/* CONFIG_HOTPLUG_CPU */
 	}

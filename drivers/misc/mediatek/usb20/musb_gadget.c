@@ -621,7 +621,7 @@ static void nuke(struct musb_ep *ep, const int status)
 	while (!list_empty(&ep->req_list)) {
 		req = list_first_entry(&ep->req_list, struct musb_request, list);
 		musb_g_giveback(ep, &req->request, status);
-		DBG(0,"call musb_g_giveback on function %s ep is %s\n", __func__,ep->end_point.name);
+		//DBG(0,"call musb_g_giveback on function %s ep is %s\n", __func__,ep->end_point.name);
 	}
 }
 
@@ -1665,9 +1665,9 @@ static void fifo_setup(struct musb *musb, struct musb_ep *musb_ep)
 	size = ffs(max(maxpacket, (u16) 8)) - 1;
 	maxpacket = 1 << size;
 
-	DBG(0,"musb type=%s\n", (musb_ep->type==USB_ENDPOINT_XFER_BULK?"BULK": \
-		(musb_ep->type==USB_ENDPOINT_XFER_INT?"INT": \
-		(musb_ep->type==USB_ENDPOINT_XFER_ISOC?"ISO":"CONTROL"))));
+	//DBG(0,"musb type=%s\n", (musb_ep->type==USB_ENDPOINT_XFER_BULK?"BULK": \
+	//	(musb_ep->type==USB_ENDPOINT_XFER_INT?"INT": \
+	//	(musb_ep->type==USB_ENDPOINT_XFER_ISOC?"ISO":"CONTROL"))));
 
 	c_size = size - 3;
 
@@ -1696,7 +1696,7 @@ static void fifo_setup(struct musb *musb, struct musb_ep *musb_ep)
 				c_size |= MUSB_FIFOSZ_DPB;
 			}
 		} else {
-		DBG(0,"EP%d supports DBBUF\n", musb_ep->current_epnum);
+		//DBG(0,"EP%d supports DBBUF\n", musb_ep->current_epnum);
 		c_size |= MUSB_FIFOSZ_DPB;
 		}
 	} else if ((musb->fifo_addr + maxpacket) > (musb->fifo_size)) {
@@ -1707,8 +1707,8 @@ static void fifo_setup(struct musb *musb, struct musb_ep *musb_ep)
 
 	/* configure the FIFO */
 	// musb_writeb(mbase, MUSB_INDEX, musb_ep->hw_ep->epnum);
-	DBG(0,"fifo size is %d after %d, fifo address is %d, epnum %d,hwepnum %d\n",
-		c_size,maxpacket, musb->fifo_addr, musb_ep->current_epnum, musb_ep->hw_ep->epnum);
+	//DBG(0,"fifo size is %d after %d, fifo address is %d, epnum %d,hwepnum %d\n",
+	//	c_size,maxpacket, musb->fifo_addr, musb_ep->current_epnum, musb_ep->hw_ep->epnum);
 
 	if(musb_ep->is_in) {
 		musb_write_txfifosz(mbase, c_size);
@@ -1908,16 +1908,16 @@ static int musb_gadget_enable(struct usb_ep *ep,
 	mtk_qmu_enable(musb, epnum, !(musb_ep->is_in));
 #endif
 
-	DBG(0,"%s periph: enabled %s for %s %s, %smaxpacket %d\n",
-			musb_driver_name, musb_ep->end_point.name,
-			({ char *s; switch (musb_ep->type) {
-			case USB_ENDPOINT_XFER_BULK:	s = "bulk"; break;
-			case USB_ENDPOINT_XFER_INT:	s = "int"; break;
-			default:			s = "iso"; break;
-			}; s; }),
-			musb_ep->is_in ? "IN" : "OUT",
-			musb_ep->dma ? "dma, " : "",
-			musb_ep->packet_sz);
+	//DBG(0,"%s periph: enabled %s for %s %s, %smaxpacket %d\n",
+	//		musb_driver_name, musb_ep->end_point.name,
+	//		({ char *s; switch (musb_ep->type) {
+	//		case USB_ENDPOINT_XFER_BULK:	s = "bulk"; break;
+	//		case USB_ENDPOINT_XFER_INT:	s = "int"; break;
+	//		default:			s = "iso"; break;
+	//		}; s; }),
+	//		musb_ep->is_in ? "IN" : "OUT",
+	//		musb_ep->dma ? "dma, " : "",
+	//		musb_ep->packet_sz);
 
 	schedule_work(&musb->irq_work);
 
@@ -2537,21 +2537,21 @@ static void musb_pullup(struct musb *musb, int is_on, bool usb_in)
 		is_on ? "on" : "off");
 	musb_writeb(musb->mregs, MUSB_POWER, power);
 #else
-	DBG(0,"MUSB: gadget pull up %d start\n", is_on);
+	//DBG(0,"MUSB: gadget pull up %d start\n", is_on);
 
 	if (!usb_in && is_on) {
-		DBG(0, "no USB cable, don't need to turn on USB\n");
+		//DBG(0, "no USB cable, don't need to turn on USB\n");
 	} else if (musb->is_host) {
-		DBG(0, "USB is host, don't need to control USB\n");
+		//DBG(0, "USB is host, don't need to control USB\n");
 	} else if (musb->in_ipo_off) {
-		DBG(0, "USB is charging mdoe, don't need to control USB\n");
+		//DBG(0, "USB is charging mdoe, don't need to control USB\n");
 	} else if (is_on) {
 		musb_start(musb);
 	} else {
         musb_stop(musb);
 	}
 
-	DBG(0,"MUSB: gadget pull up %d end\n", is_on);
+	//DBG(0,"MUSB: gadget pull up %d end\n", is_on);
 #endif
 }
 
@@ -2590,21 +2590,21 @@ static int musb_gadget_pullup(struct usb_gadget *gadget, int is_on)
 	/* unsigned long	flags; */
     bool usb_in;
 
-	DBG(0,"is_on=%d, softconnect=%d ++\n", is_on, musb->softconnect);
+	//DBG(0,"is_on=%d, softconnect=%d ++\n", is_on, musb->softconnect);
 
 	is_on = !!is_on;
 
 	if(!check_delay_done && pmic_intr_enable && !first_connect){
 		/* perform delay*/
-		DBG(0,"check perform delay needed\n");
+		//DBG(0,"check perform delay needed\n");
 		while(time_before_eq(jiffies, target_jffy)){
-			DBG(0,"sleep %d ms\n", ENUM_GAP_DELAY);
+			//DBG(0,"sleep %d ms\n", ENUM_GAP_DELAY);
 			msleep(ENUM_GAP_DELAY);
 		}
-		DBG(0,"delay done\n");
+		//DBG(0,"delay done\n");
 		check_delay_done = 1;
 	}else if(first_connect){
-		DBG(0,"got first_conn\n");
+		//DBG(0,"got first_conn\n");
 		check_delay_done = 1;
 	}
 
@@ -2689,7 +2689,7 @@ init_peripheral_ep(struct musb *musb, struct musb_ep *ep, u8 epnum, int is_in)
 				is_in ? "in" : "out"));
 
 
-	DBG(0,"EP %d name is %s\n",epnum,ep->name);
+	//DBG(0,"EP %d name is %s\n",epnum,ep->name);
 	ep->end_point.name = ep->name;
 	INIT_LIST_HEAD(&ep->end_point.ep_list);
 	if (!epnum) {
@@ -2817,7 +2817,7 @@ static int musb_gadget_start(struct usb_gadget *g,
 	struct usb_hcd		*hcd = musb_to_hcd(musb);
 	unsigned long		flags;
 	int			retval = 0;
-	DBG(0, "musb_gadget_start\n");
+	//DBG(0, "musb_gadget_start\n");
 
 	if (driver->max_speed < USB_SPEED_HIGH) {
 		retval = -EINVAL;
@@ -2826,7 +2826,7 @@ static int musb_gadget_start(struct usb_gadget *g,
 
 	pm_runtime_get_sync(musb->controller);
 
-	DBG(2, "registering driver %s\n", driver->function);
+	//DBG(2, "registering driver %s\n", driver->function);
 
 	musb->softconnect = 0;
 	musb->gadget_driver = driver;
@@ -2980,7 +2980,7 @@ void musb_g_suspend(struct musb *musb)
 	u8	devctl;
 
 	devctl = musb_readb(musb->mregs, MUSB_DEVCTL);
-	DBG(0, "devctl %02x\n", devctl);
+	//DBG(0, "devctl %02x\n", devctl);
 
 	switch (musb->xceiv->state) {
 	case OTG_STATE_B_IDLE:

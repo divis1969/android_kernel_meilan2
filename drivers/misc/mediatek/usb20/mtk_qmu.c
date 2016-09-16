@@ -327,7 +327,7 @@ void mtk_qmu_enable(struct musb *musb, u8 ep_num, u8 isRx)
 	musb_ep_select(mbase, ep_num);
 
 	if (isRx){
-		QMU_WARN("enable RQ(%d)\n", ep_num);
+		//QMU_WARN("enable RQ(%d)\n", ep_num);
 
 		/* enable dma */
 		csr |= MUSB_RXCSR_DMAENAB;
@@ -389,7 +389,7 @@ void mtk_qmu_enable(struct musb *musb, u8 ep_num, u8 isRx)
 		MGC_WriteQMU32(base, MGC_O_QMU_RQCSR(ep_num), DQMU_QUE_START);
 
 	}else{
-		QMU_WARN("enable TQ(%d)\n", ep_num);
+		//QMU_WARN("enable TQ(%d)\n", ep_num);
 
 		/* enable dma */
 		csr |= MUSB_TXCSR_DMAENAB;
@@ -450,16 +450,16 @@ void mtk_qmu_stop(u8 ep_num, u8 isRx)
 	if(!isRx){
 		if(MGC_ReadQMU16(base, MGC_O_QMU_TQCSR(ep_num)) & DQMU_QUE_ACTIVE){
 			MGC_WriteQMU32(base,  MGC_O_QMU_TQCSR(ep_num), DQMU_QUE_STOP);
-			QMU_WARN("Stop TQ %d\n", ep_num);
+			//QMU_WARN("Stop TQ %d\n", ep_num);
 		}else{
-			QMU_WARN("TQ %d already inactive\n", ep_num);
+			//QMU_WARN("TQ %d already inactive\n", ep_num);
 		}
 	} else {
 		if(MGC_ReadQMU16(base, MGC_O_QMU_RQCSR(ep_num)) & DQMU_QUE_ACTIVE){
 			MGC_WriteQMU32(base,  MGC_O_QMU_RQCSR(ep_num), DQMU_QUE_STOP);
-			QMU_WARN("Stop RQ %d\n", ep_num);
+			//QMU_WARN("Stop RQ %d\n", ep_num);
 		}else{
-			QMU_WARN("RQ %d already inactive\n", ep_num);
+			//QMU_WARN("RQ %d already inactive\n", ep_num);
 		}
 	}
 }
@@ -469,7 +469,7 @@ static void mtk_qmu_disable(u8 ep_num, u8 isRx)
 	u32 QCR;
     void __iomem* base = qmu_base;
 
-	QMU_WARN("disable %s(%d)\n", isRx?"RQ":"TQ", ep_num);
+	//QMU_WARN("disable %s(%d)\n", isRx?"RQ":"TQ", ep_num);
 
 	mtk_qmu_stop(ep_num, isRx);
 	if(isRx){
@@ -509,8 +509,8 @@ static void mtk_qmu_disable(u8 ep_num, u8 isRx)
 
 void mtk_qmu_insert_task(u8 ep_num, u8 isRx, u8* buf, u32 length, u8 zlp)
 {
-	QMU_INFO("ep_num: %d, isRx: %d, buf: %p, length: %d\n",
-			ep_num, isRx, buf, length);
+	//QMU_INFO("ep_num: %d, isRx: %d, buf: %p, length: %d\n",
+	//		ep_num, isRx, buf, length);
 	if (isRx){
 		/* rx don't care zlp input */
 		prepare_rx_gpd(buf, length, ep_num);

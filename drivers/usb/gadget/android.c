@@ -234,7 +234,7 @@ static void android_work(struct work_struct *data)
 	else
 		is_hwconnected = false;
 
-	pr_notice("[USB]%s: is_hwconnected=%d \n", __func__, is_hwconnected);
+	//pr_notice("[USB]%s: is_hwconnected=%d \n", __func__, is_hwconnected);
 	/* Add for HW/SW connect */
 
 	spin_lock_irqsave(&cdev->lock, flags);
@@ -258,22 +258,22 @@ static void android_work(struct work_struct *data)
 
 	if (uevent_envp) {
 		kobject_uevent_env(&dev->dev->kobj, KOBJ_CHANGE, uevent_envp);
-		pr_notice("[USB]%s: sent uevent %s\n", __func__, uevent_envp[0]);
+		//pr_notice("[USB]%s: sent uevent %s\n", __func__, uevent_envp[0]);
 	} else {
-		pr_notice("[USB]%s: did not send uevent (%d %d %p)\n", __func__,
-			 dev->connected, dev->sw_connected, cdev->config);
+		//pr_notice("[USB]%s: did not send uevent (%d %d %p)\n", __func__,
+		//	 dev->connected, dev->sw_connected, cdev->config);
 	}
 
 	if (!is_hwconnected) {
 		kobject_uevent_env(&dev->dev->kobj, KOBJ_CHANGE, hwdisconnected);
-		pr_notice("[USB]%s: sent uevent %s\n", __func__, hwdisconnected[0]);
+		//pr_notice("[USB]%s: sent uevent %s\n", __func__, hwdisconnected[0]);
 	}
 
 	if (uevent_envp_cdrom) {
 		kobject_uevent_env(&dev->dev->kobj, KOBJ_CHANGE, uevent_envp_cdrom);
-		pr_notice("[USB]%s: sent uevent %s\n", __func__, uevent_envp_cdrom[0]);
+		//pr_notice("[USB]%s: sent uevent %s\n", __func__, uevent_envp_cdrom[0]);
 	} else {
-		pr_notice("[USB]%s: did not send zero uevent\n", __func__);
+		//pr_notice("[USB]%s: did not send zero uevent\n", __func__);
 	}
 
 }
@@ -1305,16 +1305,16 @@ rndis_function_bind_config(struct android_usb_function *f,
 	struct eth_dev *dev;
 	struct rndis_function_config *rndis = f->config;
 
-	pr_notice("[USB]%s: \n", __func__);
+	//pr_notice("[USB]%s: \n", __func__);
 
 	if (!rndis) {
 		pr_err("%s: rndis_pdata\n", __func__);
 		return -1;
 	}
 
-	pr_info("%s MAC: %02X:%02X:%02X:%02X:%02X:%02X\n", __func__,
-		rndis->ethaddr[0], rndis->ethaddr[1], rndis->ethaddr[2],
-		rndis->ethaddr[3], rndis->ethaddr[4], rndis->ethaddr[5]);
+	//pr_info("%s MAC: %02X:%02X:%02X:%02X:%02X:%02X\n", __func__,
+	//	rndis->ethaddr[0], rndis->ethaddr[1], rndis->ethaddr[2],
+	//	rndis->ethaddr[3], rndis->ethaddr[4], rndis->ethaddr[5]);
 
 	dev = gether_setup_name(c->cdev->gadget, rndis->ethaddr, "rndis");
 	if (IS_ERR(dev)) {
@@ -1861,7 +1861,7 @@ static int android_init_functions(struct android_usb_function **functions,
 	for (; (f = *functions++); index++) {
 		f->dev_name = kasprintf(GFP_KERNEL, "f_%s", f->name);
 		/* Added for USB Develpment debug, more log for more debuging help */
-		pr_notice("[USB]%s: f->dev_name = %s, f->name = %s\n", __func__, f->dev_name, f->name);
+		//pr_notice("[USB]%s: f->dev_name = %s, f->name = %s\n", __func__, f->dev_name, f->name);
 		/* Added for USB Develpment debug, more log for more debuging help */
 		f->dev = device_create(android_class, dev->dev,
 				MKDEV(0, index), f, f->dev_name);
@@ -1879,7 +1879,7 @@ static int android_init_functions(struct android_usb_function **functions,
 								f->name);
 				goto err_out;
 			} else {
-				pr_notice("[USB]%s: init %s success!!\n", __func__, f->name);
+				//pr_notice("[USB]%s: init %s success!!\n", __func__, f->name);
 			}
 		}
 
@@ -1928,11 +1928,11 @@ android_bind_enabled_functions(struct android_dev *dev,
 	int ret;
 
 	/* Added for USB Develpment debug, more log for more debuging help */
-	pr_notice("[USB]%s: ", __func__);
+	//pr_notice("[USB]%s: ", __func__);
 	/* Added for USB Develpment debug, more log for more debuging help */
 
 	list_for_each_entry(f, &dev->enabled_functions, enabled_list) {
-		pr_notice("[USB]bind_config function '%s'/%p\n", f->name, f);
+		//pr_notice("[USB]bind_config function '%s'/%p\n", f->name, f);
 		ret = f->bind_config(f, c);
 		if (ret) {
 			pr_err("%s: %s failed", __func__, f->name);
@@ -1949,7 +1949,7 @@ android_unbind_enabled_functions(struct android_dev *dev,
 	struct android_usb_function *f;
 
 	list_for_each_entry(f, &dev->enabled_functions, enabled_list) {
-		pr_notice("[USB]unbind_config function '%s'/%p\n", f->name, f);
+		//pr_notice("[USB]unbind_config function '%s'/%p\n", f->name, f);
 		if (f->unbind_config)
 			f->unbind_config(f, c);
 	}
@@ -1962,7 +1962,7 @@ static int android_enable_function(struct android_dev *dev, char *name)
 	while ((f = *functions++)) {
 
 		/* Added for USB Develpment debug, more log for more debuging help */
-		pr_notice("[USB]%s: name = %s, f->name=%s \n", __func__, name, f->name);
+		//pr_notice("[USB]%s: name = %s, f->name=%s \n", __func__, name, f->name);
 		/* Added for USB Develpment debug, more log for more debuging help */
 		if (!strcmp(name, f->name)) {
 			list_add_tail(&f->enabled_list,
@@ -2022,7 +2022,7 @@ functions_store(struct device *pdev, struct device_attribute *attr,
 
 #ifdef CONFIG_MTK_KERNEL_POWER_OFF_CHARGING
 	if(g_boot_mode == KERNEL_POWER_OFF_CHARGING_BOOT || g_boot_mode == LOW_POWER_OFF_CHARGING_BOOT){
-		pr_notice("[USB]KPOC, func%s\n", KPOC_USB_FUNC);
+		//pr_notice("[USB]KPOC, func%s\n", KPOC_USB_FUNC);
 		err = android_enable_function(dev, KPOC_USB_FUNC);
 		if (err)
 			pr_err("android_usb: Cannot enable '%s' (%d)",
@@ -2033,7 +2033,7 @@ functions_store(struct device *pdev, struct device_attribute *attr,
 #endif
 
 	/* Added for USB Develpment debug, more log for more debuging help */
-	pr_notice("[USB]%s: \n", __func__);
+	//pr_notice("[USB]%s: \n", __func__);
 	/* Added for USB Develpment debug, more log for more debuging help */
 
 	strlcpy(buf, buff, sizeof(buf));
@@ -2043,7 +2043,7 @@ functions_store(struct device *pdev, struct device_attribute *attr,
 		name = strsep(&b, ",");
 
 		/* Added for USB Develpment debug, more log for more debuging help */
-		pr_notice("[USB]%s: name = %s \n", __func__, name);
+		//pr_notice("[USB]%s: name = %s \n", __func__, name);
 		/* Added for USB Develpment debug, more log for more debuging help */
 
 		if (!name)
@@ -2106,7 +2106,7 @@ static ssize_t enable_store(struct device *pdev, struct device_attribute *attr,
 	mutex_lock(&dev->mutex);
 
 	/* Added for USB Develpment debug, more log for more debuging help */
-	pr_notice("[USB]%s: device_attr->attr.name: %s\n", __func__, attr->attr.name);
+	//pr_notice("[USB]%s: device_attr->attr.name: %s\n", __func__, attr->attr.name);
 	/* Added for USB Develpment debug, more log for more debuging help */
 
 	sscanf(buff, "%d", &enabled);
@@ -2129,7 +2129,7 @@ static ssize_t enable_store(struct device *pdev, struct device_attribute *attr,
 		cdev->desc.idProduct = device_desc.idProduct;
 #ifdef CONFIG_MTK_KERNEL_POWER_OFF_CHARGING
 	if(g_boot_mode == KERNEL_POWER_OFF_CHARGING_BOOT || g_boot_mode == LOW_POWER_OFF_CHARGING_BOOT){
-			pr_notice("[USB]KPOC, vid:%d, pid:%d\n", KPOC_USB_VENDOR_ID, KPOC_USB_PRODUCT_ID);
+			//pr_notice("[USB]KPOC, vid:%d, pid:%d\n", KPOC_USB_VENDOR_ID, KPOC_USB_PRODUCT_ID);
 			cdev->desc.idVendor = __constant_cpu_to_le16(KPOC_USB_VENDOR_ID);
 			cdev->desc.idProduct = __constant_cpu_to_le16(KPOC_USB_PRODUCT_ID);
 		}
@@ -2147,7 +2147,7 @@ static ssize_t enable_store(struct device *pdev, struct device_attribute *attr,
 		}
 
 		list_for_each_entry(f, &dev->enabled_functions, enabled_list) {
-			pr_notice("[USB]enable function '%s'/%p\n", f->name, f);
+			//pr_notice("[USB]enable function '%s'/%p\n", f->name, f);
 			if (f->enable)
 				f->enable(f);
 		}
@@ -2155,30 +2155,30 @@ static ssize_t enable_store(struct device *pdev, struct device_attribute *attr,
 		dev->enabled = true;
 
 		/* Added for USB Develpment debug, more log for more debuging help */
-		pr_notice("[USB]%s: enable 0->1 case, device_desc.idVendor = 0x%x, device_desc.idProduct = 0x%x\n", __func__, device_desc.idVendor, device_desc.idProduct);
+		//pr_notice("[USB]%s: enable 0->1 case, device_desc.idVendor = 0x%x, device_desc.idProduct = 0x%x\n", __func__, device_desc.idVendor, device_desc.idProduct);
 		/* Added for USB Develpment debug, more log for more debuging help */
 
 	} else if (!enabled && dev->enabled) {
 
 		/* Added for USB Develpment debug, more log for more debuging help */
-		pr_notice("[USB]%s: enable 1->0 case, device_desc.idVendor = 0x%x, device_desc.idProduct = 0x%x\n", __func__, device_desc.idVendor, device_desc.idProduct);
+		//pr_notice("[USB]%s: enable 1->0 case, device_desc.idVendor = 0x%x, device_desc.idProduct = 0x%x\n", __func__, device_desc.idVendor, device_desc.idProduct);
 		/* Added for USB Develpment debug, more log for more debuging help */
 
 		android_disable(dev);
 		list_for_each_entry(f, &dev->enabled_functions, enabled_list) {
-			pr_notice("[USB]disable function '%s'/%p\n", f->name, f);
+			//pr_notice("[USB]disable function '%s'/%p\n", f->name, f);
 			if (f->disable) {
 				f->disable(f);
 			}
 		}
 		dev->enabled = false;
 	} else {
-		pr_err("android_usb: already %s\n",
-				dev->enabled ? "enabled" : "disabled");
+		//pr_err("android_usb: already %s\n",
+		//		dev->enabled ? "enabled" : "disabled");
 		/* Add for HW/SW connect */
 		if (!usb_cable_connected()) {
 			schedule_work(&dev->work);
-			pr_notice("[USB]%s: enable 0->0 case - no usb cable", __func__);
+			//pr_notice("[USB]%s: enable 0->0 case - no usb cable", __func__);
 		}
 		/* Add for HW/SW connect */
 	}
@@ -2307,7 +2307,7 @@ static int android_setup_config(struct usb_configuration *c, const struct usb_ct
 	int handled = -EINVAL;
 	const u8 recip = ctrl->bRequestType & USB_RECIP_MASK;
 
-	pr_notice("%s bRequestType=%x, bRequest=%x, recip=%x\n", __func__, ctrl->bRequestType, ctrl->bRequest, recip);
+	//pr_notice("%s bRequestType=%x, bRequest=%x, recip=%x\n", __func__, ctrl->bRequestType, ctrl->bRequest, recip);
 
 	if ((ctrl->bRequestType & USB_TYPE_MASK) == USB_TYPE_STANDARD) {
 		switch (ctrl->bRequest)
@@ -2449,7 +2449,7 @@ android_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *c)
 	int value = -EOPNOTSUPP;
 	unsigned long flags;
 
-	pr_notice("[USB]%s\n", __func__);
+	//pr_notice("[USB]%s\n", __func__);
 
 	req->zero = 0;
 	req->complete = composite_setup_complete;
@@ -2491,7 +2491,7 @@ static void android_disconnect(struct usb_composite_dev *cdev)
 	struct android_dev *dev = _android_dev;
 
 	/* Added for USB Develpment debug, more log for more debuging help */
-	pr_notice("[USB]%s: \n", __func__);
+	//pr_notice("[USB]%s: \n", __func__);
 	/* Added for USB Develpment debug, more log for more debuging help */
 
 	/* accessory HID support can be active while the
@@ -2504,7 +2504,7 @@ static void android_disconnect(struct usb_composite_dev *cdev)
 	schedule_work(&dev->work);
 
 	/* Added for USB Develpment debug, more log for more debuging help */
-	pr_notice("[USB]%s: dev->connected = %d \n", __func__, dev->connected);
+	//pr_notice("[USB]%s: dev->connected = %d \n", __func__, dev->connected);
 	/* Added for USB Develpment debug, more log for more debuging help */
 }
 

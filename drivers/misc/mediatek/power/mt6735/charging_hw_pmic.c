@@ -329,10 +329,10 @@ static kal_uint32 charging_set_cv_voltage(void *data)
 
     pmic_set_register_value(PMIC_RG_VBAT_CV_VTH,register_value);
 
-    battery_log(BAT_LOG_CRTI,"[charging_set_cv_voltage] [0x%x]=0x%x, [0x%x]=0x%x\n",
-                    0xf54, upmu_get_reg_value(0xf54),
-                    0xf4e, upmu_get_reg_value(0xf4e)
-                    );
+    //battery_log(BAT_LOG_CRTI,"[charging_set_cv_voltage] [0x%x]=0x%x, [0x%x]=0x%x\n",
+    //                0xf54, upmu_get_reg_value(0xf54),
+    //                0xf4e, upmu_get_reg_value(0xf4e)
+    //                );
 
     return status;
 }     

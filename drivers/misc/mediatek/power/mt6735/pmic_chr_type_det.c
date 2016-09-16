@@ -316,7 +316,7 @@ int hw_charging_get_charger_type(void)
          else
          {
              CHR_Type_num = STANDARD_HOST;
-             battery_log(BAT_LOG_CRTI, "step A2 : Standard USB Host!\r\n");
+             //battery_log(BAT_LOG_CRTI, "step A2 : Standard USB Host!\r\n");
          }
  
     }

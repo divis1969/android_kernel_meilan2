@@ -2433,17 +2433,17 @@ static int mmc_blk_issue_rw_rq(struct mmc_queue *mq, struct request *rqc)
 					do_div(t_period, 100);	//boundary issue
 					t_percent =((unsigned int)t_usage)/((unsigned int)t_period);						
 					mmcqd_work_percent[idx] = t_percent;
-					pr_warn("[BLOCK_TAG] mmcqd:%d Workload=%d%%, duty %lld, period %lld00, req_cnt=%d \n", mmcqd[idx], t_percent, t_usage, t_period, mmcqd_rq_count[idx]);	//period %lld00 == period %lld x100
+					//pr_warn("[BLOCK_TAG] mmcqd:%d Workload=%d%%, duty %lld, period %lld00, req_cnt=%d \n", mmcqd[idx], t_percent, t_usage, t_period, mmcqd_rq_count[idx]);	//period %lld00 == period %lld x100
 				}
 				if(mmcqd_wr_rq_count[idx] >= 2)
 				{
 					diversity = mmcqd_wr_offset[idx]/(mmcqd_wr_rq_count[idx]-1);
-					pr_warn("[BLOCK_TAG] mmcqd:%d Write Diversity=%d sectors offset, req_cnt=%d, break_cnt=%d, tract_cnt=%d, bit_cnt=%d\n", mmcqd[idx], diversity, mmcqd_wr_rq_count[idx], mmcqd_wr_break[idx], mmcqd_wr_tract[idx], mmcqd_wr_bit[idx]);
+					//pr_warn("[BLOCK_TAG] mmcqd:%d Write Diversity=%d sectors offset, req_cnt=%d, break_cnt=%d, tract_cnt=%d, bit_cnt=%d\n", mmcqd[idx], diversity, mmcqd_wr_rq_count[idx], mmcqd_wr_break[idx], mmcqd_wr_tract[idx], mmcqd_wr_bit[idx]);
 				}
 				if(mmcqd_rd_rq_count[idx] >= 2)
 				{
 					diversity = mmcqd_rd_offset[idx]/(mmcqd_rd_rq_count[idx]-1);
-					pr_warn("[BLOCK_TAG] mmcqd:%d Read Diversity=%d sectors offset, req_cnt=%d, break_cnt=%d, tract_cnt=%d, bit_cnt=%d\n", mmcqd[idx], diversity, mmcqd_rd_rq_count[idx], mmcqd_rd_break[idx], mmcqd_rd_tract[idx], mmcqd_rd_bit[idx]);
+					//pr_warn("[BLOCK_TAG] mmcqd:%d Read Diversity=%d sectors offset, req_cnt=%d, break_cnt=%d, tract_cnt=%d, bit_cnt=%d\n", mmcqd[idx], diversity, mmcqd_rd_rq_count[idx], mmcqd_rd_break[idx], mmcqd_rd_tract[idx], mmcqd_rd_bit[idx]);
 				}
 				if(mmcqd_t_usage_wr[idx])
 				{
@@ -2452,7 +2452,7 @@ static int mmc_blk_issue_rw_rq(struct mmc_queue *mq, struct request *rqc)
 					{
 						perf_meter = (mmcqd_rq_size_wr[idx])/((unsigned int)mmcqd_t_usage_wr[idx]); //kb/s
 						mmcqd_w_throughput[idx] = perf_meter;
-						pr_warn("[BLOCK_TAG] mmcqd:%d Write Throughput=%d kB/s, size: %d bytes, time:%lld ms\n", mmcqd[idx], perf_meter, mmcqd_rq_size_wr[idx], mmcqd_t_usage_wr[idx]);
+						//pr_warn("[BLOCK_TAG] mmcqd:%d Write Throughput=%d kB/s, size: %d bytes, time:%lld ms\n", mmcqd[idx], perf_meter, mmcqd_rq_size_wr[idx], mmcqd_t_usage_wr[idx]);
 					}
 				}
 				if(mmcqd_t_usage_rd[idx])
@@ -2462,18 +2462,18 @@ static int mmc_blk_issue_rw_rq(struct mmc_queue *mq, struct request *rqc)
 					{
 						perf_meter = (mmcqd_rq_size_rd[idx])/((unsigned int)mmcqd_t_usage_rd[idx]); //kb/s					
 						mmcqd_r_throughput[idx] = perf_meter;
-						pr_warn("[BLOCK_TAG] mmcqd:%d Read Throughput=%d kB/s, size: %d bytes, time:%lld ms\n", mmcqd[idx], perf_meter, mmcqd_rq_size_rd[idx], mmcqd_t_usage_rd[idx]);  					
+						//pr_warn("[BLOCK_TAG] mmcqd:%d Read Throughput=%d kB/s, size: %d bytes, time:%lld ms\n", mmcqd[idx], perf_meter, mmcqd_rq_size_rd[idx], mmcqd_t_usage_rd[idx]);  					
 					}
 				}
 				mmcqd_tag_t1[idx]=time1;
 				g_var_clear(idx);
 #ifdef FEATURE_STORAGE_META_LOG			
 				mmcmetaindex = mmc_get_devidx(md->disk);
-				pr_warn("[BLOCK_TAG] mmcqd metarw WR:%d NWR:%d HR:%d WDR:%d HDR:%d WW:%d NWW:%d HW:%d\n", 
-					metadata_logger[mmcmetaindex].metadata_rw_logger[0], metadata_logger[mmcmetaindex].metadata_rw_logger[1], 
-					metadata_logger[mmcmetaindex].metadata_rw_logger[2], metadata_logger[mmcmetaindex].metadata_rw_logger[3], 
-					metadata_logger[mmcmetaindex].metadata_rw_logger[4], metadata_logger[mmcmetaindex].metadata_rw_logger[5], 
-					metadata_logger[mmcmetaindex].metadata_rw_logger[6], metadata_logger[mmcmetaindex].metadata_rw_logger[7]);  					
+				//pr_warn("[BLOCK_TAG] mmcqd metarw WR:%d NWR:%d HR:%d WDR:%d HDR:%d WW:%d NWW:%d HW:%d\n", 
+				//	metadata_logger[mmcmetaindex].metadata_rw_logger[0], metadata_logger[mmcmetaindex].metadata_rw_logger[1], 
+				//	metadata_logger[mmcmetaindex].metadata_rw_logger[2], metadata_logger[mmcmetaindex].metadata_rw_logger[3], 
+				//	metadata_logger[mmcmetaindex].metadata_rw_logger[4], metadata_logger[mmcmetaindex].metadata_rw_logger[5], 
+				//	metadata_logger[mmcmetaindex].metadata_rw_logger[6], metadata_logger[mmcmetaindex].metadata_rw_logger[7]);  					
 				clear_metadata_rw_status(md->disk->first_minor);
 #endif
 #if defined(FEATURE_STORAGE_PID_LOGGER)
@@ -2494,7 +2494,7 @@ static int mmc_blk_issue_rw_rq(struct mmc_queue *mq, struct request *rqc)
 
 					}
 					if( i != 0) {
-						pr_warn("[BLOCK_TAG] mmcqd pid:%d %s\n", g_pid_logger[index].current_pid, g_pid_logger[index].pid_buffer);
+						//pr_warn("[BLOCK_TAG] mmcqd pid:%d %s\n", g_pid_logger[index].current_pid, g_pid_logger[index].pid_buffer);
 						//pr_warn("[BLOCK_TAG] sizeof(&(g_pid_logger[index].pid_logger)):%d\n", sizeof(unsigned short)*PID_LOGGER_COUNT);
 						//memset( &(g_pid_logger[index].pid_logger), 0, sizeof(struct struct_pid_logger)-(unsigned long)&(((struct struct_pid_logger *)0)->pid_logger));
 						memset( &(g_pid_logger[index].pid_logger), 0, sizeof(unsigned short)*PID_LOGGER_COUNT);
@@ -2513,12 +2513,12 @@ static int mmc_blk_issue_rw_rq(struct mmc_queue *mq, struct request *rqc)
 #endif
 				
 #if defined(FEATURE_STORAGE_VMSTAT_LOGGER)
-                pr_warn("[BLOCK_TAG] vmstat (FP:%ld)(FD:%ld)(ND:%ld)(WB:%ld)(NW:%ld)\n",
-                            ((global_page_state(NR_FILE_PAGES)) << (PAGE_SHIFT - 10)),
-                            ((global_page_state(NR_FILE_DIRTY)) << (PAGE_SHIFT - 10)),
-                            ((global_page_state(NR_DIRTIED))    << (PAGE_SHIFT - 10)),
-                            ((global_page_state(NR_WRITEBACK))  << (PAGE_SHIFT - 10)),
-                            ((global_page_state(NR_WRITTEN))    << (PAGE_SHIFT - 10)));
+                //pr_warn("[BLOCK_TAG] vmstat (FP:%ld)(FD:%ld)(ND:%ld)(WB:%ld)(NW:%ld)\n",
+                //            ((global_page_state(NR_FILE_PAGES)) << (PAGE_SHIFT - 10)),
+                //            ((global_page_state(NR_FILE_DIRTY)) << (PAGE_SHIFT - 10)),
+                //            ((global_page_state(NR_DIRTIED))    << (PAGE_SHIFT - 10)),
+                //            ((global_page_state(NR_WRITEBACK))  << (PAGE_SHIFT - 10)),
+                //            ((global_page_state(NR_WRITTEN))    << (PAGE_SHIFT - 10)));
 #endif
 
 			}

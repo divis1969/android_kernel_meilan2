@@ -2022,7 +2022,7 @@ long MTK_SMI_COMPAT_ioctl(struct file *filp, unsigned int cmd, unsigned long arg
         {
 
             if(COMPAT_MTK_IOC_SMI_BWC_INFO_GET == MTK_IOC_SMI_BWC_INFO_GET){
-                SMIMSG("Optimized compct IOCTL: COMPAT_MTK_IOC_SMI_BWC_INFO_GET");
+                //SMIMSG("Optimized compct IOCTL: COMPAT_MTK_IOC_SMI_BWC_INFO_GET");
                 return filp->f_op->unlocked_ioctl(filp, cmd,(unsigned long)compat_ptr(arg));
             } else{
                 MTK_SMI_COMPAT_BWC_MM_INFO __user *data32;

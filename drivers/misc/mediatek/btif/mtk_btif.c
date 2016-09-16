@@ -455,7 +455,7 @@ static int btif_chrdev_init(void)
 		BTIF_ERR_FUNC("devuce number allocation failed, i_ret:%d\n",
 			      i_ret);
 	} else {
-		BTIF_INFO_FUNC("devuce number allocation succeed\n");
+		//BTIF_INFO_FUNC("devuce number allocation succeed\n");
 	}
 	cdev_init(&btif_dev_c, &mtk_btif_fops);
 	btif_dev_c.owner = THIS_MODULE;
@@ -467,7 +467,7 @@ static int btif_chrdev_init(void)
 		btif_dev = 0;
 		return -1;
 	}
-	BTIF_INFO_FUNC("add btif dev to kernel succeed\n");
+	//BTIF_INFO_FUNC("add btif dev to kernel succeed\n");
 
 	p_btif_class = class_create(THIS_MODULE, p_btif_dev_name);
 	if (IS_ERR(p_btif_class)) {
@@ -476,7 +476,7 @@ static int btif_chrdev_init(void)
 		btif_dev = 0;
 		return -2;
 	}
-	BTIF_INFO_FUNC("create class for btif succeed\n");
+	//BTIF_INFO_FUNC("create class for btif succeed\n");
 
 	p_btif_dev = device_create(p_btif_class,
 				   NULL, btif_dev, 0, p_btif_dev_name);
@@ -488,7 +488,7 @@ static int btif_chrdev_init(void)
 		btif_dev = 0;
 		return -3;
 	}
-	BTIF_INFO_FUNC("create device for btif succeed\n");
+	//BTIF_INFO_FUNC("create device for btif succeed\n");
 
 	return 0;
 }
@@ -2250,15 +2250,15 @@ static int _btif_tx_ctx_init(p_mtk_btif p_btif)
 			goto btm_init_err;
 		}
 	} else if (BTIF_TX_USER_CTX == p_btif->tx_ctx) {
-		BTIF_INFO_FUNC
-		    ("nothing is done when btif tx in user's thread\n");
+		//BTIF_INFO_FUNC
+		//    ("nothing is done when btif tx in user's thread\n");
 	} else {
 		BTIF_ERR_FUNC("unsupported tx context type:%d\n",
 			      p_btif->tx_ctx);
 		goto btm_init_err;
 	}
 
-	BTIF_INFO_FUNC("succeed\n");
+	//BTIF_INFO_FUNC("succeed\n");
 
 	i_ret = 0;
 	return i_ret;
@@ -2333,7 +2333,7 @@ static int _btif_rx_btm_init(p_mtk_btif p_btif)
 #endif
 
 		wake_up_process(p_btif->p_task);
-		BTIF_INFO_FUNC("btif_rxd start to work!\n");
+		//BTIF_INFO_FUNC("btif_rxd start to work!\n");
 	} else if (BTIF_WQ_CTX == p_btif->btm_type) {
 		p_btif->p_rx_wq = create_singlethread_workqueue("btif_rxwq");
 		if (!(p_btif->p_rx_wq)) {
@@ -2358,7 +2358,7 @@ static int _btif_rx_btm_init(p_mtk_btif p_btif)
 
 /*spinlock init*/
 	spin_lock_init(&(p_btif->rx_irq_spinlock));
-	BTIF_INFO_FUNC("rx_spin_lock init succeed\n");
+	//BTIF_INFO_FUNC("rx_spin_lock init succeed\n");
 
 	i_ret = 0;
 	return i_ret;

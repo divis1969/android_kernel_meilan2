@@ -501,7 +501,7 @@ static struct hwmdev_object *hwmsen_alloc_object(void)
 {
 	
 	struct hwmdev_object *obj = kzalloc(sizeof(*obj), GFP_KERNEL); 
-	HWM_FUN(f);
+	//HWM_FUN(f);
 	
 	if(!obj)
 	{
@@ -1007,7 +1007,7 @@ static int hwmsen_create_attr(struct device *dev)
 {
 	int idx, err = 0;
 	int num = (int)(sizeof(hwmsen_attr_list)/sizeof(hwmsen_attr_list[0]));
-	HWM_FUN();
+	//HWM_FUN();
 	if(!dev)
 	{
 		return -EINVAL;
@@ -1278,7 +1278,7 @@ static int hwmsen_probe(struct platform_device *pdev)
 	int err;
 	//HWM_LOG("+++++++++++++++++hwmsen_probe!!\n");
 
-	HWM_FUN(f);
+	//HWM_FUN(f);
 	init_static_data();	
 	hwm_obj = hwmsen_alloc_object();
 	if (!hwm_obj)
@@ -1683,7 +1683,7 @@ EXPORT_SYMBOL_GPL(hwmsen_alsps_sensor_add);
 /*----------------------------------------------------------------------------*/
 static int __init hwmsen_init(void) 
 {
-	HWM_FUN(f);
+	//HWM_FUN(f);
 	if(platform_driver_register(&hwmsen_driver))
 	{
 		HWM_ERR("failed to register sensor driver");

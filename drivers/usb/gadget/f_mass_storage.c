@@ -2845,8 +2845,8 @@ buffhds_first_it:
 	init_waitqueue_head(&common->fsg_wait);
 
 	/* Information */
-	INFO(common, FSG_DRIVER_DESC ", version: " FSG_DRIVER_VERSION "\n");
-	INFO(common, "Number of LUNs=%d\n", common->nluns);
+	//INFO(common, FSG_DRIVER_DESC ", version: " FSG_DRIVER_VERSION "\n");
+	//INFO(common, "Number of LUNs=%d\n", common->nluns);
 
 	pathbuf = kmalloc(PATH_MAX, GFP_KERNEL);
 	for (i = 0, nluns = common->nluns, curlun = common->luns;
@@ -2862,11 +2862,11 @@ buffhds_first_it:
 					p = "(error)";
 			}
 		}
-		LINFO(curlun, "LUN: %s%s%sfile: %s\n",
-		      curlun->removable ? "removable " : "",
-		      curlun->ro ? "read only " : "",
-		      curlun->cdrom ? "CD-ROM " : "",
-		      p);
+		//LINFO(curlun, "LUN: %s%s%sfile: %s\n",
+		//      curlun->removable ? "removable " : "",
+		//      curlun->ro ? "read only " : "",
+		//      curlun->cdrom ? "CD-ROM " : "",
+		//      p);
 	}
 	kfree(pathbuf);
 

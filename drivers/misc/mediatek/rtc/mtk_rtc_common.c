@@ -403,7 +403,7 @@ static void rtc_handler(void)
 	bool pwron_alm = false, isLowPowerIrq = false, pwron_alarm = false;
 	struct rtc_time nowtm;
 	struct rtc_time tm;
-	rtc_xinfo("rtc_tasklet_handler start\n");
+	//rtc_xinfo("rtc_tasklet_handler start\n");
 
 	spin_lock(&rtc_lock);
 	isLowPowerIrq = hal_rtc_is_lp_irq();
@@ -461,8 +461,8 @@ static void rtc_handler(void)
 	if (rtc != NULL)
 		rtc_update_irq(rtc, 1, RTC_IRQF | RTC_AF);
 
-	if (rtc_show_alarm)
-		rtc_xinfo("%s time is up\n", pwron_alm ? "power-on" : "alarm");
+	//if (rtc_show_alarm)
+	//	rtc_xinfo("%s time is up\n", pwron_alm ? "power-on" : "alarm");
 
 }
 
@@ -597,9 +597,9 @@ static int rtc_ops_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
 	tm->tm_year -= RTC_MIN_YEAR_OFFSET;
 	tm->tm_mon++;
 
-	rtc_xinfo("set al time = %04d/%02d/%02d %02d:%02d:%02d (%d)\n",
-		  tm->tm_year + RTC_MIN_YEAR, tm->tm_mon, tm->tm_mday,
-		  tm->tm_hour, tm->tm_min, tm->tm_sec, alm->enabled);
+	//rtc_xinfo("set al time = %04d/%02d/%02d %02d:%02d:%02d (%d)\n",
+	//	  tm->tm_year + RTC_MIN_YEAR, tm->tm_mon, tm->tm_mday,
+	//	  tm->tm_hour, tm->tm_min, tm->tm_sec, alm->enabled);
 
 	spin_lock_irqsave(&rtc_lock, flags);
 	if (alm->enabled == 2) {	/* enable power-on alarm */

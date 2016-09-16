@@ -105,7 +105,7 @@ static struct gyro_context *gyro_context_alloc_object(void)
 {
 	
 	struct gyro_context *obj = kzalloc(sizeof(*obj), GFP_KERNEL); 
-    GYRO_LOG("gyro_context_alloc_object++++\n");
+    //GYRO_LOG("gyro_context_alloc_object++++\n");
 	if(!obj)
 	{
 		GYRO_ERR("Alloc gyro object error!\n");
@@ -125,7 +125,7 @@ static struct gyro_context *gyro_context_alloc_object(void)
 	obj->cali_sw[GYRO_AXIS_Y]=0;
 	obj->cali_sw[GYRO_AXIS_Z]=0;
 	mutex_init(&obj->gyro_op_mutex);
-	GYRO_LOG("gyro_context_alloc_object----\n");
+	//GYRO_LOG("gyro_context_alloc_object----\n");
 	return obj;
 }
 
@@ -491,17 +491,17 @@ static int gyro_real_driver_init(void)
 {
     int i =0;
 	int err=0;
-	GYRO_LOG(" gyro_real_driver_init +\n");
+	//GYRO_LOG(" gyro_real_driver_init +\n");
 	for(i = 0; i < MAX_CHOOSE_GYRO_NUM; i++)
 	{
-	  GYRO_LOG(" i=%d\n",i);
+	  //GYRO_LOG(" i=%d\n",i);
 	  if(0 != gyroscope_init_list[i])
 	  {
-	    	GYRO_LOG(" gyro try to init driver %s\n", gyroscope_init_list[i]->name);
+	    	//GYRO_LOG(" gyro try to init driver %s\n", gyroscope_init_list[i]->name);
 	    	err = gyroscope_init_list[i]->init();
 		if(0 == err)
 		{
-		   GYRO_LOG(" gyro real driver %s probe ok\n", gyroscope_init_list[i]->name);
+		   //GYRO_LOG(" gyro real driver %s probe ok\n", gyroscope_init_list[i]->name);
 		   break;
 		}
 	  }
@@ -509,7 +509,7 @@ static int gyro_real_driver_init(void)
 
 	if(i == MAX_CHOOSE_GYRO_NUM)
 	{
-	   GYRO_LOG(" gyro_real_driver_init fail\n");
+	   //GYRO_LOG(" gyro_real_driver_init fail\n");
 	   err=-1;
 	}
 	return err;
@@ -722,7 +722,7 @@ static int gyro_probe(struct platform_device *pdev)
 {
 
 	int err;
-	GYRO_LOG("+++++++++++++gyro_probe!!\n");
+	//GYRO_LOG("+++++++++++++gyro_probe!!\n");
 
 	gyro_context_obj = gyro_context_alloc_object();
 	if (!gyro_context_obj)
@@ -854,7 +854,7 @@ static struct platform_driver gyro_driver =
 
 static int __init gyro_init(void) 
 {
-	GYRO_FUN(f);
+	//GYRO_FUN(f);
 
 	if(platform_driver_register(&gyro_driver))
 	{

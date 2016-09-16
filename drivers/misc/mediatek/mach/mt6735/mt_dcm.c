@@ -1211,7 +1211,7 @@ void dcm_dump_regs(void)
 {
 
 
-        dcm_info("\n******** dcm dump register ********* \n");
+        /*dcm_info("\n******** dcm dump register ********* \n");
         REG_DUMP(APMIXED_PLL_CON2);
         REG_DUMP(MCUCFG_ACLKEN_DIV);
         REG_DUMP(MCUCFG_L2C_SRAM_CTRL);
@@ -1234,7 +1234,7 @@ void dcm_dump_regs(void)
         REG_DUMP(DRAMC_GDDR3CTL1);
         REG_DUMP(DDRPHY_MEMPLL_DIVIDER);
         REG_DUMP(EMI_CONM);
-        REG_DUMP(EFUSE_REG_DCM_ON);
+        REG_DUMP(EFUSE_REG_DCM_ON);*/
         
         return;
 }

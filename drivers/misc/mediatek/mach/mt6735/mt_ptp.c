@@ -997,7 +997,7 @@ static void base_ops_dump_status(struct ptp_det *det)
 	int i;
 
 	FUNC_ENTER(FUNC_LV_HELP);
-
+/*
 	ptp_isr_info("[%s]\n",			det->name);
 
 	ptp_isr_info("PTPINITEN = 0x%08X\n",	det->PTPINITEN);
@@ -1044,7 +1044,7 @@ static void base_ops_dump_status(struct ptp_det *det)
 
 	for (i = 0; i < det->num_freq_tbl; i++)
 		ptp_isr_info("volt_tbl_pmic[%d] = %d\n", i, det->volt_tbl_pmic[i]);
-
+*/
 	FUNC_EXIT(FUNC_LV_HELP);
 }
 
@@ -1928,7 +1928,7 @@ static inline void handle_init02_isr(struct ptp_det *det)
 
 	FUNC_ENTER(FUNC_LV_LOCAL);
 
-	ptp_isr_info("@ %s(%s)\n", __func__, det->name);
+	//ptp_isr_info("@ %s(%s)\n", __func__, det->name);
 	det->dcvalues[PTP_PHASE_INIT02]		= ptp_read(PTP_DCVALUES);
 	det->ptp_freqpct30[PTP_PHASE_INIT02] = ptp_read(PTP_FREQPCT30);
 	det->ptp_26c[PTP_PHASE_INIT02]		= ptp_read(PTP_PTPINTEN + 0x10);
@@ -1975,10 +1975,10 @@ static inline void handle_init02_isr(struct ptp_det *det)
 				break;
 		}
 #endif
-		ptp_isr_info("ptp_detectors[%s].volt_tbl[%d] = 0x%08X (%d)\n",
-			     det->name, i, det->volt_tbl[i], PTP_PMIC_VAL_TO_VOLT(det->volt_tbl[i]));
+		//ptp_isr_info("ptp_detectors[%s].volt_tbl[%d] = 0x%08X (%d)\n",
+		//	     det->name, i, det->volt_tbl[i], PTP_PMIC_VAL_TO_VOLT(det->volt_tbl[i]));
 	}
-	ptp_isr_info("ptp_level = 0x%08X\n", ptp_level);
+	//ptp_isr_info("ptp_level = 0x%08X\n", ptp_level);
 
 	ptp_set_ptp_volt(det);
 
@@ -2617,7 +2617,7 @@ static int ptp_probe(struct platform_device *pdev)
 	}
 
 #endif
-	ptp_notice("Set PTP IRQ OK.\n");
+	//ptp_notice("Set PTP IRQ OK.\n");
 
 	//ptp_level = mt_ptp_get_level();
 	//atomic_set(&ptp_init01_cnt, 0);

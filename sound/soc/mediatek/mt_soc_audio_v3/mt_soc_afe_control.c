@@ -2664,7 +2664,7 @@ int AudDrv_Allocate_mem_Buffer(struct device *pDev, Soc_Aud_Digital_Block  MemBl
                         Audio_dma_buf[MemBlock] ->bytes = Buffer_length;
                     }
                 }
-                printk("area = %p \n", Audio_dma_buf[MemBlock] ->area);
+                //printk("area = %p \n", Audio_dma_buf[MemBlock] ->area);
             }
         }
         break;
@@ -3222,7 +3222,7 @@ void Auddrv_DL2_Interrupt_Handler(void)  // irq2 ISR handler
 
 struct snd_dma_buffer *Get_Mem_Buffer(Soc_Aud_Digital_Block MemBlock)
 {
-    printk("%s MemBlock = %d\n", __func__, MemBlock);
+    //printk("%s MemBlock = %d\n", __func__, MemBlock);
     switch (MemBlock)
     {
         case Soc_Aud_Digital_Block_MEM_DL1:

@@ -414,8 +414,8 @@ void mt_usb_otg_init(struct musb *musb)
 
 	if (switch_dev_register(&otg_state))
 		printk("switch_dev_register fail\n");
-	else
-		printk("switch_dev register success\n");
+	//else
+	//	printk("switch_dev register success\n");
 }
 #else
 

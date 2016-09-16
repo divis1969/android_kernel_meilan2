@@ -780,7 +780,7 @@ void dev_activate(struct net_device *dev)
 	   virtual interfaces
 	 */
 	 
-	printk(KERN_INFO "[mtk_net][sched]dev_activate dev = %s \n", dev->name);
+	//printk(KERN_INFO "[mtk_net][sched]dev_activate dev = %s \n", dev->name);
 
 	if (dev->qdisc == &noop_qdisc)
 		attach_default_qdiscs(dev);

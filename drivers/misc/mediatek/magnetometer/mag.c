@@ -128,7 +128,7 @@ static struct mag_context *mag_context_alloc_object(void)
 {
 	
 	struct mag_context *obj = kzalloc(sizeof(*obj), GFP_KERNEL); 
-    MAG_LOG("mag_context_alloc_object++++\n");
+    //MAG_LOG("mag_context_alloc_object++++\n");
 	if(!obj)
 	{
 		MAG_ERR("Alloc magel object error!\n");
@@ -147,7 +147,7 @@ static struct mag_context *mag_context_alloc_object(void)
 	obj->active_nodata_sensor = 0;
 	obj->is_batch_enable = false;
 	mutex_init(&obj->mag_op_mutex);
-	MAG_LOG("mag_context_alloc_object----\n");
+	//MAG_LOG("mag_context_alloc_object----\n");
 	return obj;
 }
 static int mag_enable_data(int handle,int enable)
@@ -684,17 +684,17 @@ static int mag_real_driver_init(void)
 {
     int i =0;
 	int err=0;
-	MAG_LOG(" mag_real_driver_init +\n");
+	//MAG_LOG(" mag_real_driver_init +\n");
 	for(i = 0; i < MAX_CHOOSE_G_NUM; i++)
 	{
-	  MAG_LOG(" i=%d\n",i);
+	  //MAG_LOG(" i=%d\n",i);
 	  if(0 != msensor_init_list[i])
 	  {
-	    MAG_LOG(" mag try to init driver %s\n", msensor_init_list[i]->name);
+	    //MAG_LOG(" mag try to init driver %s\n", msensor_init_list[i]->name);
 	    err = msensor_init_list[i]->init();
 		if(0 == err)
 		{
-		   MAG_LOG(" mag real driver %s probe ok\n", msensor_init_list[i]->name);
+		   //MAG_LOG(" mag real driver %s probe ok\n", msensor_init_list[i]->name);
 		   break;
 		}
 	  }
@@ -702,7 +702,7 @@ static int mag_real_driver_init(void)
 
 	if(i == MAX_CHOOSE_G_NUM)
 	{
-	   MAG_LOG(" mag_real_driver_init fail\n");
+	   //MAG_LOG(" mag_real_driver_init fail\n");
 	   err =-1;
 	}
 	return err;
@@ -970,7 +970,7 @@ static int mag_probe(struct platform_device *pdev)
 {
 
 	int err;
-	MAG_LOG("+++++++++++++mag_probe!!\n");
+	//MAG_LOG("+++++++++++++mag_probe!!\n");
 	mag_context_obj = mag_context_alloc_object();
 	if (!mag_context_obj)
 	{
@@ -1099,7 +1099,7 @@ static struct platform_driver mag_driver =
 
 static int __init mag_init(void) 
 {
-	MAG_FUN();
+	//MAG_FUN();
 
 	if(platform_driver_register(&mag_driver))
 	{

@@ -399,13 +399,13 @@ bool hal_rtc_check_pwron_alarm_rg(struct rtc_time *nowtm, struct rtc_time *tm) {
 	pdn2 = rtc_read(RTC_PDN2);
 	spar0 = rtc_read(RTC_SPAR0);
 	spar1 = rtc_read(RTC_SPAR1);
-	hal_rtc_xinfo("pdn1 = 0x%4x\n", pdn1);
+	//hal_rtc_xinfo("pdn1 = 0x%4x\n", pdn1);
 
 	if (pdn1 & RTC_PDN1_PWRON_TIME) {	/* power-on time is available */
 
-		hal_rtc_xinfo("pdn1 = 0x%4x\n", pdn1);
+		//hal_rtc_xinfo("pdn1 = 0x%4x\n", pdn1);
 		hal_rtc_get_tick_time(nowtm);
-		hal_rtc_xinfo("pdn1 = 0x%4x\n", pdn1);
+		//hal_rtc_xinfo("pdn1 = 0x%4x\n", pdn1);
 		if (rtc_read(RTC_TC_SEC) < nowtm->tm_sec) {	/* SEC has carried */
 			hal_rtc_get_tick_time(nowtm);
 		}
@@ -440,12 +440,12 @@ void hal_rtc_get_alarm_time(struct rtc_time *tm, struct rtc_wkalrm *alm) {
 
 void hal_rtc_set_alarm_time(struct rtc_time *tm) {
 	u16 irqen;
-		hal_rtc_xinfo("rtc set alarm time = %04d/%02d/%02d (%d) %02d:%02d:%02d\n",
-		          tm->tm_year + RTC_MIN_YEAR, tm->tm_mon, tm->tm_mday,
-		          tm->tm_wday, tm->tm_hour, tm->tm_min, tm->tm_sec);
-		hal_rtc_xinfo("a = %d\n",(rtc_read(RTC_AL_MTH)& (RTC_NEW_SPARE3))|tm->tm_mon);
-		hal_rtc_xinfo("b = %d\n",(rtc_read(RTC_AL_DOM)& (RTC_NEW_SPARE1))|tm->tm_mday);
-		hal_rtc_xinfo("c = %d\n",(rtc_read(RTC_AL_HOU)& (RTC_NEW_SPARE_FG_MASK))|tm->tm_hour);
+		//hal_rtc_xinfo("rtc set alarm time = %04d/%02d/%02d (%d) %02d:%02d:%02d\n",
+		//          tm->tm_year + RTC_MIN_YEAR, tm->tm_mon, tm->tm_mday,
+		//          tm->tm_wday, tm->tm_hour, tm->tm_min, tm->tm_sec);
+		//hal_rtc_xinfo("a = %d\n",(rtc_read(RTC_AL_MTH)& (RTC_NEW_SPARE3))|tm->tm_mon);
+		//hal_rtc_xinfo("b = %d\n",(rtc_read(RTC_AL_DOM)& (RTC_NEW_SPARE1))|tm->tm_mday);
+		//hal_rtc_xinfo("c = %d\n",(rtc_read(RTC_AL_HOU)& (RTC_NEW_SPARE_FG_MASK))|tm->tm_hour);
 		rtc_write(RTC_AL_YEA, (rtc_read(RTC_AL_YEA) & ~(RTC_AL_YEA_MASK)) | (tm->tm_year & RTC_AL_YEA_MASK));
 		rtc_write(RTC_AL_MTH, (rtc_read(RTC_AL_MTH) & (RTC_NEW_SPARE3))|tm->tm_mon);
 		rtc_write(RTC_AL_DOM, (rtc_read(RTC_AL_DOM) & (RTC_NEW_SPARE1))|tm->tm_mday);

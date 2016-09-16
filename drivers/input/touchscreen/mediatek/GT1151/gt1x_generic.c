@@ -769,10 +769,10 @@ s32 gt1x_read_version(struct gt1x_version_info * ver_info)
 			    IS_NUM_OR_CHAR(buf[0]) && IS_NUM_OR_CHAR(buf[1]) && IS_NUM_OR_CHAR(buf[2]) && buf[10] != 0xFF) {	/*sensor id == 0xFF, retry */
 				break;
 			} else {
-				GTP_ERROR("GTP read version failed!(checksum error)");
+				//GTP_ERROR("GTP read version failed!(checksum error)");
 			}
 		} else {
-			GTP_ERROR("GTP read version failed!");
+			//GTP_ERROR("GTP read version failed!");
 		}
 		GTP_DEBUG("GTP reread version : %d", retry);
 		msleep(100);

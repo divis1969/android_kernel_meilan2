@@ -189,8 +189,8 @@ static void _btif_set_default_setting(void)
 		mtk_btif.p_irq->irq_id = irq_of_parse_and_map(node,0);
 		/*fixme, be compitable arch 64bits*/
 		mtk_btif.base = (unsigned long)of_iomap(node, 0);
-		BTIF_INFO_FUNC("get btif irq(%d),register base(0x%lx)\n",
-			mtk_btif.p_irq->irq_id,mtk_btif.base);
+		//BTIF_INFO_FUNC("get btif irq(%d),register base(0x%lx)\n",
+		//	mtk_btif.p_irq->irq_id,mtk_btif.base);
 	}else{
 		BTIF_ERR_FUNC("get btif device node fail\n");
 	}
@@ -198,16 +198,16 @@ static void _btif_set_default_setting(void)
 	/* get the interrupt line behaviour */
     if (of_property_read_u32_array(node, "interrupts",
 			irq_info, ARRAY_SIZE(irq_info))){
-		BTIF_ERR_FUNC("get interrupt flag from DTS fail\n");
+		//BTIF_ERR_FUNC("get interrupt flag from DTS fail\n");
 	}else{
 		mtk_btif.p_irq->irq_flags = irq_info[2];
-		BTIF_INFO_FUNC("get interrupt flag(0x%x)\n",mtk_btif.p_irq->irq_flags);
+		//BTIF_INFO_FUNC("get interrupt flag(0x%x)\n",mtk_btif.p_irq->irq_flags);
 	}
 
 	if (of_property_read_u32_index(node, "reg", 0, &phy_base)){
-		BTIF_ERR_FUNC("get register phy base from DTS fail\n");
+		//BTIF_ERR_FUNC("get register phy base from DTS fail\n");
     }else{
-		BTIF_INFO_FUNC("get register phy base(0x%x)\n",(unsigned int)phy_base);
+		//BTIF_INFO_FUNC("get register phy base(0x%x)\n",(unsigned int)phy_base);
 	}
 		
 }

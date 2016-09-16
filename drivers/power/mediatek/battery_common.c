@@ -415,7 +415,7 @@ EXPORT_SYMBOL(upmu_is_chr_det);
 
 void wake_up_bat(void)
 {
-	battery_log(BAT_LOG_CRTI, "[BATTERY] wake_up_bat. \r\n");
+	//battery_log(BAT_LOG_CRTI, "[BATTERY] wake_up_bat. \r\n");
 
 	chr_wake_up_bat = KAL_TRUE;
 	bat_thread_timeout = KAL_TRUE;
@@ -431,7 +431,7 @@ EXPORT_SYMBOL(wake_up_bat);
 #ifdef FG_BAT_INT
 void wake_up_bat2(void)
 {
-	battery_log(BAT_LOG_CRTI, "[BATTERY] wake_up_bat2. \r\n");
+	//battery_log(BAT_LOG_CRTI, "[BATTERY] wake_up_bat2. \r\n");
 
 	wake_lock(&battery_fg_lock);
 	fg_wake_up_bat = KAL_TRUE;
@@ -447,7 +447,7 @@ EXPORT_SYMBOL(wake_up_bat2);
 
 void wake_up_bat3(void)
 {
-	battery_log(BAT_LOG_CRTI, "[BATTERY] wake_up_ba3t. \r\n");
+	//battery_log(BAT_LOG_CRTI, "[BATTERY] wake_up_ba3t. \r\n");
 
 	bat_thread_timeout = KAL_TRUE;
 #ifdef MTK_ENABLE_AGING_ALGORITHM
@@ -1850,8 +1850,8 @@ static void battery_update(struct battery_data *bat_data)
 		}
 	}
 
-	battery_log(BAT_LOG_CRTI, "UI_SOC=(%d), resetBatteryMeter=(%d)\n",
-			    BMT_status.UI_SOC, resetBatteryMeter);
+	//battery_log(BAT_LOG_CRTI, "UI_SOC=(%d), resetBatteryMeter=(%d)\n",
+	//		    BMT_status.UI_SOC, resetBatteryMeter);
 
 #if !defined(CUST_CAPACITY_OCV2CV_TRANSFORM)
 	/* set RTC SOC to 1 to avoid SOC jump in charger boot. */
@@ -1879,7 +1879,7 @@ static void battery_update(struct battery_data *bat_data)
 			bat_data->adjust_power = adjust_power;
 			battery_log(BAT_LOG_CRTI, "adjust_power=(%d)\n", adjust_power);
 	}
-        battery_log(BAT_LOG_CRTI, "battery_update.\n");
+        //battery_log(BAT_LOG_CRTI, "battery_update.\n");
 
 #ifdef DLPT_POWER_OFF_EN
     #ifndef DISABLE_DLPT_FEATURE
@@ -2328,11 +2328,11 @@ void mt_battery_GetBatteryData(void)
 	if (g_battery_soc_ready == KAL_FALSE)
 		g_battery_soc_ready = KAL_TRUE;
 
-	battery_log(BAT_LOG_CRTI,
-			    "AvgVbat=(%d),bat_vol=(%d),AvgI=(%d),I=(%d),VChr=(%d),AvgT=(%d),T=(%d),pre_SOC=(%d),SOC=(%d),ZCV=(%d)\n",
-			    BMT_status.bat_vol, bat_vol, BMT_status.ICharging, ICharging,
-			    BMT_status.charger_vol, BMT_status.temperature, temperature,
-			    previous_SOC, BMT_status.SOC, BMT_status.ZCV);
+	//battery_log(BAT_LOG_CRTI,
+	//		    "AvgVbat=(%d),bat_vol=(%d),AvgI=(%d),I=(%d),VChr=(%d),AvgT=(%d),T=(%d),pre_SOC=(%d),SOC=(%d),ZCV=(%d)\n",
+	//		    BMT_status.bat_vol, bat_vol, BMT_status.ICharging, ICharging,
+	//		    BMT_status.charger_vol, BMT_status.temperature, temperature,
+	//		    previous_SOC, BMT_status.SOC, BMT_status.ZCV);
 
 
 }
@@ -2814,8 +2814,8 @@ static void mt_battery_charger_detect_check(void)
 		}
 #endif
 
-		battery_log(BAT_LOG_CRTI, "[BAT_thread]Cable in, CHR_Type_num=%d\r\n",
-				    BMT_status.charger_type);
+		//battery_log(BAT_LOG_CRTI, "[BAT_thread]Cable in, CHR_Type_num=%d\r\n",
+		//		    BMT_status.charger_type);
 
 	} else {
 		wake_unlock(&battery_suspend_lock);
@@ -2831,7 +2831,7 @@ static void mt_battery_charger_detect_check(void)
 		BMT_status.TOPOFF_charging_time = 0;
 		BMT_status.POSTFULL_charging_time = 0;
 
-		battery_log(BAT_LOG_CRTI, "[BAT_thread]Cable out \r\n");
+		//battery_log(BAT_LOG_CRTI, "[BAT_thread]Cable out \r\n");
 
 		mt_usb_disconnect();
 	}
@@ -2840,9 +2840,9 @@ static void mt_battery_charger_detect_check(void)
 static void mt_kpoc_power_off_check(void)
 {
 #ifdef CONFIG_MTK_KERNEL_POWER_OFF_CHARGING
-	battery_log(BAT_LOG_CRTI,
-			    "[mt_kpoc_power_off_check] , chr_vol=%d, boot_mode=%d\r\n", BMT_status.charger_vol,
-			    g_platform_boot_mode);
+	//battery_log(BAT_LOG_CRTI,
+	//		    "[mt_kpoc_power_off_check] , chr_vol=%d, boot_mode=%d\r\n", BMT_status.charger_vol,
+	//		    g_platform_boot_mode);
 	if (g_platform_boot_mode == KERNEL_POWER_OFF_CHARGING_BOOT
 	    || g_platform_boot_mode == LOW_POWER_OFF_CHARGING_BOOT) {
 		if ((upmu_is_chr_det() == KAL_FALSE) && (BMT_status.charger_vol < 2500))	/* vbus < 2.5V */
@@ -3082,9 +3082,9 @@ int bat_thread_kthread(void *x)
 			battery_meter_reset();
 			chr_wake_up_bat = KAL_FALSE;
 
-			battery_log(BAT_LOG_CRTI,
-					    "[BATTERY] Charger plug in/out, Call battery_meter_reset. (%d)\n",
-					    BMT_status.UI_SOC);
+			//battery_log(BAT_LOG_CRTI,
+			//		    "[BATTERY] Charger plug in/out, Call battery_meter_reset. (%d)\n",
+			//		    BMT_status.UI_SOC);
 		}
 
 	}
@@ -3383,7 +3383,7 @@ void charger_plug_out_sw_mode(void)
 						}
 						else
 						{
-							battery_log(BAT_LOG_CRTI,"[charger_hv_detect_sw_thread_handler] success ICharging=%d , VCHR=%d cnt=%d \n",ICharging,VCharger,cnt);	
+							//battery_log(BAT_LOG_CRTI,"[charger_hv_detect_sw_thread_handler] success ICharging=%d , VCHR=%d cnt=%d \n",ICharging,VCharger,cnt);	
 							break;
 						}
 					}

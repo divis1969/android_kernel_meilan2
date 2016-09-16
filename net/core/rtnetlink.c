@@ -67,11 +67,11 @@ static DEFINE_MUTEX(rtnl_mutex);
 void rtnl_lock(void)
 {
 	#ifdef CONFIG_MTK_NET_LOGGING  
-	printk(KERN_DEBUG "[mtk_net][rtnl_lock]rtnl_lock++\n");
+	//printk(KERN_DEBUG "[mtk_net][rtnl_lock]rtnl_lock++\n");
 	#endif
 	mutex_lock(&rtnl_mutex);
 	#ifdef CONFIG_MTK_NET_LOGGING  
-	printk(KERN_DEBUG "[mtk_net][rtnl_lock]rtnl_lock--\n");
+	//printk(KERN_DEBUG "[mtk_net][rtnl_lock]rtnl_lock--\n");
 	#endif
 }
 EXPORT_SYMBOL(rtnl_lock);
@@ -80,7 +80,7 @@ void __rtnl_unlock(void)
 {
 	mutex_unlock(&rtnl_mutex);
 	#ifdef CONFIG_MTK_NET_LOGGING  
-	printk(KERN_DEBUG "[mtk_net][rtnl_lock]rtnl_unlock done\n");
+	//printk(KERN_DEBUG "[mtk_net][rtnl_lock]rtnl_unlock done\n");
 	#endif
 }
 
@@ -1993,8 +1993,8 @@ void rtmsg_ifinfo(int type, struct net_device *dev, unsigned int change)
 	int err = -ENOBUFS;
 	size_t if_info_size;
 	#ifdef CONFIG_MTK_NET_LOGGING  
-    printk(KERN_INFO "[mtk_net][rtnetlink]rtmsg_ifinfo type:%d, dev:%s, change:%u, pid = %d", 
-		type, dev->name, change, current->pid);
+    //printk(KERN_INFO "[mtk_net][rtnetlink]rtmsg_ifinfo type:%d, dev:%s, change:%u, pid = %d", 
+	//	type, dev->name, change, current->pid);
     #endif
 	skb = nlmsg_new((if_info_size = if_nlmsg_size(dev, 0)), GFP_KERNEL);
 	if (skb == NULL)

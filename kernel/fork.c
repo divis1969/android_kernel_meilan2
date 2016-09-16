@@ -1286,8 +1286,10 @@ static struct task_struct *copy_process(unsigned long clone_flags,
 		return ERR_PTR(-EINVAL);
 
 	retval = security_task_create(clone_flags);
-	if (retval)
+	if (retval) {
+		printk("fork fail at security_task_create\n");
 		goto fork_out;
+	}
 
 	retval = -ENOMEM;
 	p = dup_task_struct(current);
@@ -1311,8 +1313,10 @@ static struct task_struct *copy_process(unsigned long clone_flags,
 	if (atomic_read(&p->real_cred->user->processes) >=
 			task_rlimit(p, RLIMIT_NPROC)) {
 		if (!capable(CAP_SYS_ADMIN) && !capable(CAP_SYS_RESOURCE) &&
-		    p->real_cred->user != INIT_USER)
+		    p->real_cred->user != INIT_USER) {
+			printk("fork fail at CAP_SYS_ADMIN\n");
 			goto bad_fork_free;
+		}
 	}
 	current->flags &= ~PF_NPROC_EXCEEDED;
 
@@ -1755,7 +1759,7 @@ long do_fork(unsigned long clone_flags,
 #ifdef CONFIG_SCHEDSTATS
         /* mt shceduler profiling*/
         save_mtproc_info(p, sched_clock());	
-        printk(KERN_DEBUG "[%d:%s] fork [%d:%s]\n", current->pid, current->comm, p->pid, p->comm);
+        //printk(KERN_DEBUG "[%d:%s] fork [%d:%s]\n", current->pid, current->comm, p->pid, p->comm);
 #endif
 		wake_up_new_task(p);
 

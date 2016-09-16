@@ -265,7 +265,7 @@ void _i2c_dump_info(mt_i2c *i2c)
 {
   //I2CFUC();
   //int val=0; 
-  I2CLOG("I2C(%d) dump info++++++++++++++++++++++\n",i2c->id);
+  /*I2CLOG("I2C(%d) dump info++++++++++++++++++++++\n",i2c->id);
   I2CLOG("I2C structure:\n"
     I2CTAG"Clk=%d,Id=%d,Speed mode=%x,St_rs=%x,Dma_en=%x,Op=%x,Poll_en=%x,Irq_stat=%x\n"
     I2CTAG"Trans_len=%x,Trans_num=%x,Trans_auxlen=%x,Data_size=%x,speed=%d\n"
@@ -337,6 +337,7 @@ void _i2c_dump_info(mt_i2c *i2c)
       (__raw_readl((void*)i2c->pdmabase+OFFSET_RX_LEN)),
       (__raw_readl((void*)i2c->pdmabase+OFFSET_INT_BUF_SIZE)),
       (__raw_readl((void*)i2c->pdmabase+OFFSET_DEBUG_STA)));
+*/
 	  
 #if 0 ///TODO:
 //#if defined(GPIO_I2C0_SDA_PIN) && defined(GPIO_I2C1_SDA_PIN)
@@ -350,7 +351,7 @@ void _i2c_dump_info(mt_i2c *i2c)
 		  mt_get_gpio_in(GPIO_I2C2_SDA_PIN),mt_get_gpio_in(GPIO_I2C2_SCA_PIN),
 		  mt_get_gpio_in(GPIO_I2C3_SDA_PIN),mt_get_gpio_in(GPIO_I2C3_SCA_PIN));
 #endif
-  I2CLOG("I2C(%d) dump info------------------------------\n",i2c->id);
+  //I2CLOG("I2C(%d) dump info------------------------------\n",i2c->id);
   return;
 }
 static int dma_busy_wait_ready(mt_i2c *i2c)
@@ -478,17 +479,17 @@ static S32 _i2c_deal_result(mt_i2c *i2c)
   {
     /*Timeout or ACKERR*/
     if ( tmo == 0 ){
-      I2CERR("id=%d,addr: %x, transfer timeout\n",i2c->id, i2c->addr);
+      //I2CERR("id=%d,addr: %x, transfer timeout\n",i2c->id, i2c->addr);
       ret = -ETIMEDOUT_I2C;
     } else
     {
-      I2CERR("id=%d,addr: %x, transfer error\n",i2c->id,i2c->addr);
+      //I2CERR("id=%d,addr: %x, transfer error\n",i2c->id,i2c->addr);
       ret = -EREMOTEIO_I2C;
     }
     if (i2c->irq_stat & I2C_HS_NACKERR)
-      I2CERR("I2C_HS_NACKERR\n");
+      //I2CERR("I2C_HS_NACKERR\n");
     if (i2c->irq_stat & I2C_ACKERR)
-      I2CERR("I2C_ACKERR\n");
+      //I2CERR("I2C_ACKERR\n");
     if (i2c->filter_msg==FALSE) //TEST
     {
       _i2c_dump_info(i2c);

@@ -59,7 +59,7 @@ void get_hw_chip_diff_trim_value(void)
     reg_val = upmu_get_reg_value(0xCB8);
     chip_diff_trim_value_4_0 = (reg_val>>7)&0x001F;//chip_diff_trim_value_4_0 = (reg_val>>10)&0x001F;
     
-    bm_print(BM_LOG_CRTI, "[Chip_Trim] Reg[0xCB8]=0x%x, chip_diff_trim_value_4_0=%d\n", reg_val, chip_diff_trim_value_4_0);
+    //bm_print(BM_LOG_CRTI, "[Chip_Trim] Reg[0xCB8]=0x%x, chip_diff_trim_value_4_0=%d\n", reg_val, chip_diff_trim_value_4_0);
     #else
     bm_print(BM_LOG_FULL, "[Chip_Trim] need check reg number\n");
     #endif
@@ -101,7 +101,7 @@ void get_hw_chip_diff_trim_value(void)
             break;
     }
 
-    bm_print(BM_LOG_CRTI, "[Chip_Trim] chip_diff_trim_value=%d\n", chip_diff_trim_value);
+    //bm_print(BM_LOG_CRTI, "[Chip_Trim] chip_diff_trim_value=%d\n", chip_diff_trim_value);
 #endif
 }
 
@@ -138,8 +138,8 @@ int get_hw_ocv(void)
     #else
     adc_result_reg = pmic_get_register_value(PMIC_AUXADC_ADC_OUT_WAKEUP_PCHR);//mt6325_upmu_get_rg_adc_out_wakeup_pchr();
     adc_result = (adc_result_reg*r_val_temp*VOLTAGE_FULL_RANGE)/ADC_PRECISE;        
-    bm_print(BM_LOG_CRTI, "[oam] get_hw_ocv (pchr) : adc_result_reg=%d, adc_result=%d\n", 
-        adc_result_reg, adc_result);
+    //bm_print(BM_LOG_CRTI, "[oam] get_hw_ocv (pchr) : adc_result_reg=%d, adc_result=%d\n", 
+    //    adc_result_reg, adc_result);
     #endif
 
     adc_result += g_hw_ocv_tune_value;
@@ -156,18 +156,18 @@ int get_hw_ocv(void)
 
 static void dump_nter(void)
 {
-    bm_print(BM_LOG_CRTI, "[dump_nter] mt6328_upmu_get_fg_nter_29_16 = 0x%x\r\n", 
-       pmic_get_register_value(PMIC_FG_NTER_29_16));
-    bm_print(BM_LOG_CRTI, "[dump_nter] mt6328_upmu_get_fg_nter_15_00 = 0x%x\r\n", 
-        pmic_get_register_value(PMIC_FG_NTER_15_00));
+    //bm_print(BM_LOG_CRTI, "[dump_nter] mt6328_upmu_get_fg_nter_29_16 = 0x%x\r\n", 
+    //   pmic_get_register_value(PMIC_FG_NTER_29_16));
+    //bm_print(BM_LOG_CRTI, "[dump_nter] mt6328_upmu_get_fg_nter_15_00 = 0x%x\r\n", 
+    //    pmic_get_register_value(PMIC_FG_NTER_15_00));
 }
 
 static void dump_car(void)
 {
-    bm_print(BM_LOG_CRTI, "[dump_car] upmu_get_fg_car_31_16 = 0x%x\r\n", 
-        pmic_get_register_value(PMIC_FG_CAR_31_16));
-    bm_print(BM_LOG_CRTI, "[dump_car] upmu_get_fg_car_15_00 = 0x%x\r\n", 
-        pmic_get_register_value(PMIC_FG_CAR_15_00));
+    //bm_print(BM_LOG_CRTI, "[dump_car] upmu_get_fg_car_31_16 = 0x%x\r\n", 
+    //    pmic_get_register_value(PMIC_FG_CAR_31_16));
+    //bm_print(BM_LOG_CRTI, "[dump_car] upmu_get_fg_car_15_00 = 0x%x\r\n", 
+    //    pmic_get_register_value(PMIC_FG_CAR_15_00));
 }
 
 static kal_uint32 fg_get_data_ready_status(void)
@@ -177,7 +177,7 @@ static kal_uint32 fg_get_data_ready_status(void)
     
     ret=pmic_read_interface(MT6328_FGADC_CON0, &temp_val, 0xFFFF, 0x0);
     
-    bm_print(BM_LOG_FULL, "[fg_get_data_ready_status] Reg[0x%x]=0x%x\r\n", MT6328_FGADC_CON0, temp_val);
+    //bm_print(BM_LOG_FULL, "[fg_get_data_ready_status] Reg[0x%x]=0x%x\r\n", MT6328_FGADC_CON0, temp_val);
     
     temp_val = (temp_val & (MT6328_PMIC_FG_LATCHDATA_ST_MASK << MT6328_PMIC_FG_LATCHDATA_ST_SHIFT)) >> MT6328_PMIC_FG_LATCHDATA_ST_SHIFT;
 
@@ -213,11 +213,11 @@ static kal_int32 fgauge_initialization(void *data)
 
     //reset HW FG
     ret=pmic_config_interface(MT6328_FGADC_CON0, 0x7100, 0xFF00, 0x0);
-    bm_print(BM_LOG_CRTI, "******** [fgauge_initialization] reset HW FG!\n" );
+    //bm_print(BM_LOG_CRTI, "******** [fgauge_initialization] reset HW FG!\n" );
     
     //set FG_OSR
     ret=pmic_config_interface(MT6328_FGADC_CON11, 0x8, 0xF, 0x0);
-    bm_print(BM_LOG_CRTI, "[fgauge_initialization] Reg[0x%x]=0x%x\n",MT6328_FGADC_CON11, upmu_get_reg_value(MT6328_FGADC_CON11));
+    //bm_print(BM_LOG_CRTI, "[fgauge_initialization] Reg[0x%x]=0x%x\n",MT6328_FGADC_CON11, upmu_get_reg_value(MT6328_FGADC_CON11));
     
     //make sure init finish
     m = 0;
@@ -232,7 +232,7 @@ static kal_int32 fgauge_initialization(void *data)
         }    
     }
     
-    bm_print(BM_LOG_CRTI, "******** [fgauge_initialization] Done!\n" );
+    //bm_print(BM_LOG_CRTI, "******** [fgauge_initialization] Done!\n" );
 #endif    
 
     return STATUS_OK;

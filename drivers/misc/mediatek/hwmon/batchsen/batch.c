@@ -247,7 +247,7 @@ static struct batch_context *batch_context_alloc_object(void)
 {
 	
 	struct batch_context *obj = kzalloc(sizeof(*obj), GFP_KERNEL); 
-    	BATCH_LOG("batch_context_alloc_object++++\n");
+    	//BATCH_LOG("batch_context_alloc_object++++\n");
 	if(!obj)
 	{
 		BATCH_ERR("Alloc batch object error!\n");
@@ -266,7 +266,7 @@ static struct batch_context *batch_context_alloc_object(void)
 	obj->div_flag= 0;
 	obj->force_wake_upon_fifo_full = SENSORS_BATCH_WAKE_UPON_FIFO_FULL;
 	mutex_init(&obj->batch_op_mutex);
-	BATCH_LOG("batch_context_alloc_object----\n");
+	//BATCH_LOG("batch_context_alloc_object----\n");
 	return obj;
 }
 
@@ -923,17 +923,17 @@ static int batch_real_driver_init(void)
 {
     int i =0;
 	int err=0;
-	BATCH_LOG(" batch_real_driver_init +\n");
+	//BATCH_LOG(" batch_real_driver_init +\n");
 	for(i = 0; i < MAX_CHOOSE_BATCH_NUM; i++)
 	{
-	  BATCH_LOG(" i=%d\n",i);
+	  //BATCH_LOG(" i=%d\n",i);
 	  if(0 != batch_init_list[i])
 	  {
-	    BATCH_LOG(" batch try to init driver %s\n", batch_init_list[i]->name);
+	    //BATCH_LOG(" batch try to init driver %s\n", batch_init_list[i]->name);
 	    err = batch_init_list[i]->init();
 		if(0 == err)
 		{
-		   BATCH_LOG(" batch real driver %s probe ok\n", batch_init_list[i]->name);
+		   //BATCH_LOG(" batch real driver %s probe ok\n", batch_init_list[i]->name);
 		   break;
 		}
 	  }
@@ -941,7 +941,7 @@ static int batch_real_driver_init(void)
 
 	if(i == MAX_CHOOSE_BATCH_NUM)
 	{
-	   BATCH_LOG(" batch_real_driver_init fail\n");
+	   //BATCH_LOG(" batch_real_driver_init fail\n");
 	   err = -1;
 	}
 	return err;
@@ -989,7 +989,7 @@ static int batch_probe(struct platform_device *pdev)
 {
 
 	int err;
-	BATCH_LOG("+++++++++++++batch_probe!!\n");
+	//BATCH_LOG("+++++++++++++batch_probe!!\n");
 
 	batch_context_obj = batch_context_alloc_object();
 	if (!batch_context_obj)
@@ -1210,7 +1210,7 @@ static struct platform_driver batch_driver =
 
 static int __init batch_init(void) 
 {
-	BATCH_FUN();
+	//BATCH_FUN();
 
 	if(platform_driver_register(&batch_driver))
 	{

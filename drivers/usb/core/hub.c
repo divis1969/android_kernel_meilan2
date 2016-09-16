@@ -1523,32 +1523,32 @@ static int hub_configure(struct usb_hub *hub,
 				? 'F' : 'R';
 		portstr[hdev->maxchild] = 0;
 		dev_dbg(hub_dev, "compound device; port removable status: %s\n", portstr);
-	} else
-		dev_dbg(hub_dev, "standalone hub\n");
+	} //else
+	//	dev_dbg(hub_dev, "standalone hub\n");
 
 	switch (wHubCharacteristics & HUB_CHAR_LPSM) {
 	case HUB_CHAR_COMMON_LPSM:
-		dev_dbg(hub_dev, "ganged power switching\n");
+		//dev_dbg(hub_dev, "ganged power switching\n");
 		break;
 	case HUB_CHAR_INDV_PORT_LPSM:
-		dev_dbg(hub_dev, "individual port power switching\n");
+		//dev_dbg(hub_dev, "individual port power switching\n");
 		break;
 	case HUB_CHAR_NO_LPSM:
 	case HUB_CHAR_LPSM:
-		dev_dbg(hub_dev, "no power switching (usb 1.0)\n");
+		//dev_dbg(hub_dev, "no power switching (usb 1.0)\n");
 		break;
 	}
 
 	switch (wHubCharacteristics & HUB_CHAR_OCPM) {
 	case HUB_CHAR_COMMON_OCPM:
-		dev_dbg(hub_dev, "global over-current protection\n");
+		//dev_dbg(hub_dev, "global over-current protection\n");
 		break;
 	case HUB_CHAR_INDV_PORT_OCPM:
-		dev_dbg(hub_dev, "individual port over-current protection\n");
+		//dev_dbg(hub_dev, "individual port over-current protection\n");
 		break;
 	case HUB_CHAR_NO_OCPM:
 	case HUB_CHAR_OCPM:
-		dev_dbg(hub_dev, "no over-current protection\n");
+		//dev_dbg(hub_dev, "no over-current protection\n");
 		break;
 	}
 
@@ -1559,7 +1559,7 @@ static int hub_configure(struct usb_hub *hub,
 	case USB_HUB_PR_FS:
 		break;
 	case USB_HUB_PR_HS_SINGLE_TT:
-		dev_dbg(hub_dev, "Single TT\n");
+		//dev_dbg(hub_dev, "Single TT\n");
 		hub->tt.hub = hdev;
 		break;
 	case USB_HUB_PR_HS_MULTI_TT:
@@ -1586,28 +1586,28 @@ static int hub_configure(struct usb_hub *hub,
 		case HUB_TTTT_8_BITS:
 			if (hdev->descriptor.bDeviceProtocol != 0) {
 				hub->tt.think_time = 666;
-				dev_dbg(hub_dev, "TT requires at most %d "
-						"FS bit times (%d ns)\n",
-					8, hub->tt.think_time);
+				//dev_dbg(hub_dev, "TT requires at most %d "
+				//		"FS bit times (%d ns)\n",
+				//	8, hub->tt.think_time);
 			}
 			break;
 		case HUB_TTTT_16_BITS:
 			hub->tt.think_time = 666 * 2;
-			dev_dbg(hub_dev, "TT requires at most %d "
-					"FS bit times (%d ns)\n",
-				16, hub->tt.think_time);
+			//dev_dbg(hub_dev, "TT requires at most %d "
+			//		"FS bit times (%d ns)\n",
+			//	16, hub->tt.think_time);
 			break;
 		case HUB_TTTT_24_BITS:
 			hub->tt.think_time = 666 * 3;
-			dev_dbg(hub_dev, "TT requires at most %d "
-					"FS bit times (%d ns)\n",
-				24, hub->tt.think_time);
+			//dev_dbg(hub_dev, "TT requires at most %d "
+			//		"FS bit times (%d ns)\n",
+			//	24, hub->tt.think_time);
 			break;
 		case HUB_TTTT_32_BITS:
 			hub->tt.think_time = 666 * 4;
-			dev_dbg(hub_dev, "TT requires at most %d "
-					"FS bit times (%d ns)\n",
-				32, hub->tt.think_time);
+			//dev_dbg(hub_dev, "TT requires at most %d "
+			//		"FS bit times (%d ns)\n",
+			//	32, hub->tt.think_time);
 			break;
 	}
 
@@ -1617,8 +1617,8 @@ static int hub_configure(struct usb_hub *hub,
 		dev_dbg(hub_dev, "Port indicators are supported\n");
 	}
 
-	dev_dbg(hub_dev, "power on to power good time: %dms\n",
-		hub->descriptor->bPwrOn2PwrGood * 2);
+	//dev_dbg(hub_dev, "power on to power good time: %dms\n",
+	//	hub->descriptor->bPwrOn2PwrGood * 2);
 
 	/* power budgeting mostly matters with bus-powered hubs,
 	 * and battery-powered root hubs (may provide just 8 mA).
@@ -1691,14 +1691,14 @@ static int hub_configure(struct usb_hub *hub,
 	}
 
 	/* local power status reports aren't always correct */
-	if (hdev->actconfig->desc.bmAttributes & USB_CONFIG_ATT_SELFPOWER)
-		dev_dbg(hub_dev, "local power source is %s\n",
-			(hubstatus & HUB_STATUS_LOCAL_POWER)
-			? "lost (inactive)" : "good");
+	//if (hdev->actconfig->desc.bmAttributes & USB_CONFIG_ATT_SELFPOWER)
+		//dev_dbg(hub_dev, "local power source is %s\n",
+		//	(hubstatus & HUB_STATUS_LOCAL_POWER)
+		//	? "lost (inactive)" : "good");
 
-	if ((wHubCharacteristics & HUB_CHAR_OCPM) == 0)
-		dev_dbg(hub_dev, "%sover-current condition exists\n",
-			(hubstatus & HUB_STATUS_OVERCURRENT) ? "" : "no ");
+	//if ((wHubCharacteristics & HUB_CHAR_OCPM) == 0)
+	//	dev_dbg(hub_dev, "%sover-current condition exists\n",
+	//		(hubstatus & HUB_STATUS_OVERCURRENT) ? "" : "no ");
 
 	/* set up the interrupt endpoint
 	 * We use the EP's maxpacket size instead of (PORTS+1+7)/8
@@ -1914,7 +1914,7 @@ descriptor_error:
 		goto descriptor_error;
 
 	/* We found a hub */
-	dev_info (&intf->dev, "USB hub found\n");
+	//dev_info (&intf->dev, "USB hub found\n");
 
 	hub = kzalloc(sizeof(*hub), GFP_KERNEL);
 	if (!hub) {
@@ -2345,17 +2345,17 @@ static void show_string(struct usb_device *udev, char *id, char *string)
 
 static void announce_device(struct usb_device *udev)
 {
-	dev_info(&udev->dev, "New USB device found, idVendor=%04x, idProduct=%04x\n",
-		le16_to_cpu(udev->descriptor.idVendor),
-		le16_to_cpu(udev->descriptor.idProduct));
-	dev_info(&udev->dev,
-		"New USB device strings: Mfr=%d, Product=%d, SerialNumber=%d\n",
-		udev->descriptor.iManufacturer,
-		udev->descriptor.iProduct,
-		udev->descriptor.iSerialNumber);
-	show_string(udev, "Product", udev->product);
-	show_string(udev, "Manufacturer", udev->manufacturer);
-	show_string(udev, "SerialNumber", udev->serial);
+	//dev_info(&udev->dev, "New USB device found, idVendor=%04x, idProduct=%04x\n",
+	//	le16_to_cpu(udev->descriptor.idVendor),
+	//	le16_to_cpu(udev->descriptor.idProduct));
+	//dev_info(&udev->dev,
+	//	"New USB device strings: Mfr=%d, Product=%d, SerialNumber=%d\n",
+	//	udev->descriptor.iManufacturer,
+	//	udev->descriptor.iProduct,
+	//	udev->descriptor.iSerialNumber);
+	//show_string(udev, "Product", udev->product);
+	//show_string(udev, "Manufacturer", udev->manufacturer);
+	//show_string(udev, "SerialNumber", udev->serial);
 }
 #else
 static inline void announce_device(struct usb_device *udev) { }

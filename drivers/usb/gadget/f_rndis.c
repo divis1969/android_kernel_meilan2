@@ -627,18 +627,18 @@ static int rndis_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
 	struct usb_composite_dev *cdev = f->config->cdev;
 
 	/* we know alt == 0 */
-	printk( F_RNDIS_LOG "rndis_set_alt - interface : %d, rndis ctrl id : %d, rndis data id : %d\n" ,
-	intf, rndis->ctrl_id, rndis->data_id);
+	//printk( F_RNDIS_LOG "rndis_set_alt - interface : %d, rndis ctrl id : %d, rndis data id : %d\n" ,
+	//intf, rndis->ctrl_id, rndis->data_id);
 
 	if (intf == rndis->ctrl_id) {
 		if (rndis->notify->driver_data) {
 			VDBG(cdev, "reset rndis control %d\n", intf);
-			printk( F_RNDIS_LOG "reset rndis control %d\n", intf);
+			//printk( F_RNDIS_LOG "reset rndis control %d\n", intf);
 			usb_ep_disable(rndis->notify);
 		}
 		if (!rndis->notify->desc) {
 			VDBG(cdev, "init rndis ctrl %d\n", intf);
-			printk( F_RNDIS_LOG "init rndis ctrl %d\n", intf);
+			//printk( F_RNDIS_LOG "init rndis ctrl %d\n", intf);
 			if (config_ep_by_speed(cdev->gadget, f, rndis->notify))
 				goto fail;
 		}
@@ -650,13 +650,13 @@ static int rndis_set_alt(struct usb_function *f, unsigned intf, unsigned alt)
 
 		if (rndis->port.in_ep->driver_data) {
 			DBG(cdev, "reset rndis\n");
-			printk( F_RNDIS_LOG "reset rndis\n");
+			//printk( F_RNDIS_LOG "reset rndis\n");
 			gether_disconnect(&rndis->port);
 		}
 
 		if (!rndis->port.in_ep->desc || !rndis->port.out_ep->desc) {
 			DBG(cdev, "init rndis\n");
-			printk( F_RNDIS_LOG "init rndis\n");
+			//printk( F_RNDIS_LOG "init rndis\n");
 			if (config_ep_by_speed(cdev->gadget, f,
 					       rndis->port.in_ep) ||
 			    config_ep_by_speed(cdev->gadget, f,
@@ -707,8 +707,8 @@ static void rndis_disable(struct usb_function *f)
 	if (!rndis->notify->driver_data)
 		return;
 
-	DBG(cdev, "rndis deactivated\n");
-	printk( F_RNDIS_LOG "rndis deactivated\n");
+	//DBG(cdev, "rndis deactivated\n");
+	//printk( F_RNDIS_LOG "rndis deactivated\n");
 
 	rndis_uninit(rndis->config);
 	gether_disconnect(&rndis->port);
@@ -732,7 +732,7 @@ static void rndis_open(struct gether *geth)
 	struct usb_composite_dev *cdev = geth->func.config->cdev;
 
 	DBG(cdev, "%s\n", __func__);
-	printk( F_RNDIS_LOG "%s\n", __func__);
+	//printk( F_RNDIS_LOG "%s\n", __func__);
 
 	rndis_set_param_medium(rndis->config, RNDIS_MEDIUM_802_3,
 				bitrate(cdev->gadget) / 100);
@@ -744,7 +744,7 @@ static void rndis_close(struct gether *geth)
 	struct f_rndis		*rndis = func_to_rndis(&geth->func);
 
 	DBG(geth->func.config->cdev, "%s\n", __func__);
-	printk( F_RNDIS_LOG "%s\n", __func__);
+	//printk( F_RNDIS_LOG "%s\n", __func__);
 
 	rndis_set_param_medium(rndis->config, RNDIS_MEDIUM_802_3, 0);
 	rndis_signal_disconnect(rndis->config);
@@ -762,7 +762,7 @@ rndis_bind(struct usb_configuration *c, struct usb_function *f)
 	int			status;
 	struct usb_ep		*ep;
 
-	printk( F_RNDIS_LOG \
+	//printk( F_RNDIS_LOG \
 			"%s: rndis_bind begin \n", \
 			__func__);
 
@@ -865,12 +865,12 @@ rndis_bind(struct usb_configuration *c, struct usb_function *f)
 	 * until we're activated via set_alt().
 	 */
 
-	printk( F_RNDIS_LOG
-				"RNDIS: %s speed IN/%s OUT/%s NOTIFY/%s\n",
-			gadget_is_superspeed(c->cdev->gadget) ? "super" :
-			gadget_is_dualspeed(c->cdev->gadget) ? "dual" : "full",
-			rndis->port.in_ep->name, rndis->port.out_ep->name,
-			rndis->notify->name);
+	//printk( F_RNDIS_LOG
+	//			"RNDIS: %s speed IN/%s OUT/%s NOTIFY/%s\n",
+	//		gadget_is_superspeed(c->cdev->gadget) ? "super" :
+	//		gadget_is_dualspeed(c->cdev->gadget) ? "dual" : "full",
+	//		rndis->port.in_ep->name, rndis->port.out_ep->name,
+	//		rndis->notify->name);
 
 	DBG(cdev, "RNDIS: %s speed IN/%s OUT/%s NOTIFY/%s\n",
 			gadget_is_superspeed(c->cdev->gadget) ? "super" :
@@ -905,9 +905,9 @@ rndis_unbind(struct usb_configuration *c, struct usb_function *f)
 {
 	struct f_rndis		*rndis = func_to_rndis(f);
 
-	printk( F_RNDIS_LOG \
-			"%s: rndis_unbind \n", \
-			__func__);
+	//printk( F_RNDIS_LOG \
+	//		"%s: rndis_unbind \n", \
+	//		__func__);
 
 
 	rndis_deregister(rndis->config);
@@ -991,7 +991,7 @@ fail:
 		rndis_exit();
 	}
 
-	printk( F_RNDIS_LOG \
+	//printk( F_RNDIS_LOG \
 			"%s: rndis_bind_config_vendor done, status is %d \n", \
 			__func__, status);
 	return status;

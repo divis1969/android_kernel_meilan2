@@ -912,8 +912,8 @@ static irqreturn_t musb_stage0_irq(struct musb *musb, u8 int_usb,
 	}
 
 	if (int_usb & MUSB_INTR_SUSPEND) {
-		DBG(0, "SUSPEND (%s) devctl %02x\n",
-			otg_state_string(musb->xceiv->state), devctl);
+		//DBG(0, "SUSPEND (%s) devctl %02x\n",
+		//	otg_state_string(musb->xceiv->state), devctl);
 		handled = IRQ_HANDLED;
 
 		switch (musb->xceiv->state) {
@@ -1115,8 +1115,8 @@ b_host:
 	if (int_usb & MUSB_INTR_RESET) {
 		handled = IRQ_HANDLED;
 
-		DBG(0, "MUSB_INTR_RESET (%s)\n",
-			otg_state_string(musb->xceiv->state));
+		//DBG(0, "MUSB_INTR_RESET (%s)\n",
+		//	otg_state_string(musb->xceiv->state));
 
 		if ((devctl & MUSB_DEVCTL_HM) != 0) {
 			/*
@@ -1241,7 +1241,7 @@ void musb_start(struct musb *musb)
 	int vbusdet_retry = 5;
 
 	u8  intrusbe;
-	DBG(0, "start, is_host=%d is_active=%d\n", musb->is_host, musb->is_active);
+	//DBG(0, "start, is_host=%d is_active=%d\n", musb->is_host, musb->is_active);
 
 	if(musb->is_active) {
 		if(musb->is_host) {
@@ -1359,7 +1359,7 @@ void musb_stop(struct musb *musb)
 	gadget_stop(musb);
 	musb_platform_disable(musb);
 	musb->is_active = 0;
-	DBG(0, "HDRC disabled\n");
+	//DBG(0, "HDRC disabled\n");
 
 	/* FIXME
 	 *  - mark host and/or peripheral drivers unusable/inactive
@@ -1434,7 +1434,7 @@ static int fifo_setup(struct musb *musb, struct musb_hw_ep  *hw_ep,
 
 	switch (cfg->style) {
 	case MUSB_FIFO_TX:
-		DBG(0,"Tx ep %d fifo size is %d fifo address is %x\n",hw_ep->epnum,maxpacket,c_off);
+		//DBG(0,"Tx ep %d fifo size is %d fifo address is %x\n",hw_ep->epnum,maxpacket,c_off);
 //		musb_write_txfifosz(mbase, c_size);
 //		musb_write_txfifoadd(mbase, c_off);
 		hw_ep->tx_double_buffered = !!(c_size & MUSB_FIFOSZ_DPB);
@@ -1443,7 +1443,7 @@ static int fifo_setup(struct musb *musb, struct musb_hw_ep  *hw_ep,
 		hw_ep->ep_in.fifo_mode= cfg->mode;
 		break;
 	case MUSB_FIFO_RX:
-		DBG(0,"Rx ep %d fifo size is %d fifo address is %x\n",hw_ep->epnum,maxpacket,c_off);
+		//DBG(0,"Rx ep %d fifo size is %d fifo address is %x\n",hw_ep->epnum,maxpacket,c_off);
 //		musb_write_rxfifosz(mbase, c_size);
 //		musb_write_rxfifoadd(mbase, c_off);
 		hw_ep->rx_double_buffered = !!(c_size & MUSB_FIFOSZ_DPB);
@@ -1732,8 +1732,8 @@ static int musb_core_init(u16 musb_type, struct musb *musb)
 	if (reg & MUSB_CONFIGDATA_SOFTCONE)
 		strcat(aInfo, ", SoftConn");
 
-	DBG(0,"%s: ConfigData=0x%02x (%s)\n",
-			musb_driver_name, reg, aInfo);
+	//DBG(0,"%s: ConfigData=0x%02x (%s)\n",
+	//		musb_driver_name, reg, aInfo);
 
 	aDate[0] = 0;
 	if (MUSB_CONTROLLER_MHDRC == musb_type) {
@@ -1767,10 +1767,10 @@ static int musb_core_init(u16 musb_type, struct musb *musb)
 
 	if (musb->dyn_fifo) {
 		status = ep_config_from_table(musb);
-		DBG(0, "ep_config_from_table %d\n",status);
+		//DBG(0, "ep_config_from_table %d\n",status);
 	} else {
 		status = ep_config_from_hw(musb);
-		DBG(0, "ep_config_from_hw %d\n",status);
+		//DBG(0, "ep_config_from_hw %d\n",status);
 	}
 
 
@@ -1788,27 +1788,27 @@ static int musb_core_init(u16 musb_type, struct musb *musb)
 		hw_ep->tx_reinit = 1;
 #endif
 		if (hw_ep->max_packet_sz_tx) {
-			DBG(0,
+			/*DBG(0,
 				"%s: hw_ep %d%s, %smax %d\n",
 				musb_driver_name, i,
 				hw_ep->is_shared_fifo ? "shared" : "tx",
 				hw_ep->tx_double_buffered
 					? "doublebuffer, " : "",
-				hw_ep->max_packet_sz_tx);
+				hw_ep->max_packet_sz_tx);*/
 		}
 		if (hw_ep->max_packet_sz_rx && !hw_ep->is_shared_fifo) {
-			DBG(0,
+			/*DBG(0,
 				"%s: hw_ep %d%s, %smax %d\n",
 				musb_driver_name, i,
 				"rx",
 				hw_ep->rx_double_buffered
 					? "doublebuffer, " : "",
-				hw_ep->max_packet_sz_rx);
+				hw_ep->max_packet_sz_rx);*/
 		}
 		if (!(hw_ep->max_packet_sz_tx || hw_ep->max_packet_sz_rx))
 			DBG(0, "hw_ep %d not configured\n", i);
 	}
-	DBG(0,"musb_core_init end\n");
+	//DBG(0,"musb_core_init end\n");
 	return 0;
 }
 

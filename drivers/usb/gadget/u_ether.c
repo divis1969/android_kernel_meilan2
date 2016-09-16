@@ -1151,11 +1151,11 @@ struct eth_dev *gether_setup_name(struct usb_gadget *g, u8 ethaddr[ETH_ALEN],
 	snprintf(net->name, sizeof(net->name), "%s%%d", netname);
 
 	if (get_ether_addr(dev_addr, net->dev_addr))
-		dev_warn(&g->dev,
-			"using random %s ethernet address\n", "self");
+		//dev_warn(&g->dev,
+		//	"using random %s ethernet address\n", "self");
 	if (get_ether_addr(host_addr, dev->host_mac))
-		dev_warn(&g->dev,
-			"using random %s ethernet address\n", "host");
+		//dev_warn(&g->dev,
+		//	"using random %s ethernet address\n", "host");
 
 	if (ethaddr)
 		memcpy(ethaddr, dev->host_mac, ETH_ALEN);

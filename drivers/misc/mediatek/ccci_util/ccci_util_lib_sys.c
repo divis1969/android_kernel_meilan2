@@ -527,7 +527,7 @@ static ssize_t kcfg_setting_show(char *buf)
 	actual_write = snprintf(&buf[curr], 4096-curr, "total:%d\n", curr);
 	curr+= actual_write;
 
-	CCCI_UTIL_INF_MSG("cfg_info_buffer size:%d\n", curr);
+	//CCCI_UTIL_INF_MSG("cfg_info_buffer size:%d\n", curr);
 	return (ssize_t)curr;
 }
 

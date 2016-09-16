@@ -227,13 +227,13 @@ static void update_vcore_pwrap_cmd(struct opp_profile *opp_ctrl_table)
 	mt_cpufreq_set_pmic_cmd(PMIC_WRAP_PHASE_DEEPIDLE, IDX_DI_VCORE_TRANS1, vcore_uv_to_pmic(trans[TRANS1]));
 	mt_cpufreq_set_pmic_cmd(PMIC_WRAP_PHASE_DEEPIDLE, IDX_DI_VCORE_LPM,    vcore_uv_to_pmic(opp_ctrl_table[OPPI_LOW_PWR].vcore_uv));
 
-	vcorefs_crit("UHPM  : %u (0x%x)\n", opp_ctrl_table[OPPI_PERF_ULTRA].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_PERF_ULTRA].vcore_uv));
-	vcorefs_crit("TRANS4: %u (0x%x)\n", trans[TRANS4], vcore_uv_to_pmic(trans[TRANS4]));
-	vcorefs_crit("TRANS3: %u (0x%x)\n", trans[TRANS3], vcore_uv_to_pmic(trans[TRANS3]));
-	vcorefs_crit("HPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_PERF].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_PERF].vcore_uv));
-	vcorefs_crit("TRANS2: %u (0x%x)\n", trans[TRANS2], vcore_uv_to_pmic(trans[TRANS2]));
-	vcorefs_crit("TRANS1: %u (0x%x)\n", trans[TRANS1], vcore_uv_to_pmic(trans[TRANS1]));
-	vcorefs_crit("LPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_LOW_PWR].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_LOW_PWR].vcore_uv));
+	//vcorefs_crit("UHPM  : %u (0x%x)\n", opp_ctrl_table[OPPI_PERF_ULTRA].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_PERF_ULTRA].vcore_uv));
+	//vcorefs_crit("TRANS4: %u (0x%x)\n", trans[TRANS4], vcore_uv_to_pmic(trans[TRANS4]));
+	//vcorefs_crit("TRANS3: %u (0x%x)\n", trans[TRANS3], vcore_uv_to_pmic(trans[TRANS3]));
+	//vcorefs_crit("HPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_PERF].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_PERF].vcore_uv));
+	//vcorefs_crit("TRANS2: %u (0x%x)\n", trans[TRANS2], vcore_uv_to_pmic(trans[TRANS2]));
+	//vcorefs_crit("TRANS1: %u (0x%x)\n", trans[TRANS1], vcore_uv_to_pmic(trans[TRANS1]));
+	//vcorefs_crit("LPM   : %u (0x%x)\n", opp_ctrl_table[OPPI_LOW_PWR].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPPI_LOW_PWR].vcore_uv));
 }
 
 /**************************************
@@ -1000,8 +1000,8 @@ static int init_vcorefs_pwrctrl(void)
 		if (i < OPPI_LOW_PWR)	/* update performance OPP */
 			opp_ctrl_table[i].ddr_khz = pwrctrl->curr_ddr_khz;
 
-		vcorefs_crit("OPP %d: vcore_uv = %u, ddr_khz = %u\n",
-			     i, opp_ctrl_table[i].vcore_uv, opp_ctrl_table[i].ddr_khz);
+		//vcorefs_crit("OPP %d: vcore_uv = %u, ddr_khz = %u\n",
+		//	     i, opp_ctrl_table[i].vcore_uv, opp_ctrl_table[i].ddr_khz);
 	}
 
 	update_vcore_pwrap_cmd(opp_ctrl_table);

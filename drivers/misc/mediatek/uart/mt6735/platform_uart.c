@@ -1909,7 +1909,7 @@ void mtk_uart_enable_sleep(struct mtk_uart *uart)
 {
     unsigned long base = uart->base;
     reg_sync_writel(0x1, UART_SLEEP_EN);
-    printk("SLEEP_EN = 0x%x\n",UART_READ32(UART_SLEEP_EN));
+    //printk("SLEEP_EN = 0x%x\n",UART_READ32(UART_SLEEP_EN));
 }
 /*---------------------------------------------------------------------------*/
 

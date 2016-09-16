@@ -269,7 +269,7 @@ static int usb_probe_interface(struct device *dev)
 	int error = -ENODEV;
 	int lpm_disable_error;
 
-	dev_dbg(dev, "%s\n", __func__);
+	//dev_dbg(dev, "%s\n", __func__);
 
 	intf->needs_binding = 0;
 
@@ -287,7 +287,7 @@ static int usb_probe_interface(struct device *dev)
 	if (!id)
 		return error;
 
-	dev_dbg(dev, "%s - got id\n", __func__);
+	//dev_dbg(dev, "%s - got id\n", __func__);
 
 	error = usb_autoresume_device(udev);
 	if (error)

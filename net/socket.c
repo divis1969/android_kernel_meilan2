@@ -1177,11 +1177,11 @@ static int sock_close(struct inode *inode, struct file *filp)
         struct socket *sock = SOCKET_I(inode);
 	if((sock != NULL) && (sock->sk != NULL))
 		{
-	       printk(KERN_INFO "[mtk_net][socekt]socket_close[%lu] refcnt: %d\n",inode->i_ino,atomic_read(&sock->sk->sk_refcnt)); 
+	       //printk(KERN_INFO "[mtk_net][socekt]socket_close[%lu] refcnt: %d\n",inode->i_ino,atomic_read(&sock->sk->sk_refcnt)); 
 		}
 	else
 		{
-		   printk(KERN_INFO "[mtk_net][socekt]socket_close[%lu] \n",inode->i_ino); 
+		   //printk(KERN_INFO "[mtk_net][socekt]socket_close[%lu] \n",inode->i_ino); 
 		}
 	#endif
 	sock_release(SOCKET_I(inode));
@@ -1418,13 +1418,13 @@ out:
 	if((retval >= 0)&& sock && SOCK_INODE(sock) )
 	{
 	   #ifdef CONFIG_MTK_NET_LOGGING 
-	   printk(KERN_INFO "[mtk_net][socket]socket_create[%lu]:fd=%d \n",SOCK_INODE(sock)->i_ino,retval);
+	   //printk(KERN_INFO "[mtk_net][socket]socket_create[%lu]:fd=%d \n",SOCK_INODE(sock)->i_ino,retval);
 	   #endif               
 	}
 	 else
 	 {
 	 	#ifdef CONFIG_MTK_NET_LOGGING 	
-	   printk(KERN_INFO "[mtk_net][socket]socket_create:fd=%d \n",retval); 
+	   //printk(KERN_INFO "[mtk_net][socket]socket_create:fd=%d \n",retval); 
 	   #endif
 	 }
 	return retval;
@@ -1515,7 +1515,7 @@ SYSCALL_DEFINE4(socketpair, int, family, int, type, int, protocol,
             if(sock1 && SOCK_INODE(sock1) && sock2&& SOCK_INODE(sock2) )
             {
        	        #ifdef CONFIG_MTK_NET_LOGGING 
-	            printk(KERN_INFO "[mtk_net][socket]socketpair:fd1[%lu]=%d, fd2[%lu]=%d \n", SOCK_INODE(sock1)->i_ino,fd1,SOCK_INODE(sock2)->i_ino,fd2);
+	            //printk(KERN_INFO "[mtk_net][socket]socketpair:fd1[%lu]=%d, fd2[%lu]=%d \n", SOCK_INODE(sock1)->i_ino,fd1,SOCK_INODE(sock2)->i_ino,fd2);
 	            #endif             
 	     }
 	  
@@ -1570,7 +1570,7 @@ SYSCALL_DEFINE3(bind, int, fd, struct sockaddr __user *, umyaddr, int, addrlen)
       #ifdef CONFIG_MTK_NET_LOGGING 
 		    if((((struct sockaddr_in *)&address)->sin_family) != AF_UNIX)
 		    	{
-		    		 printk(KERN_WARNING "[mtk_net][socket] bind addr->sin_port:%d,err:%d \n",htons(((struct sockaddr_in *)&address)->sin_port),err);
+		    		 //printk(KERN_WARNING "[mtk_net][socket] bind addr->sin_port:%d,err:%d \n",htons(((struct sockaddr_in *)&address)->sin_port),err);
           }
         #endif		      
 		}
@@ -1695,7 +1695,7 @@ out:
         if( (err>=0)&& newsock && SOCK_INODE(newsock) )
       {
 	    	#ifdef CONFIG_MTK_NET_LOGGING 
-	        printk(KERN_INFO "[mtk_net][socket]socket_accept:fd=%d,server_sock[%lu], newsock[%lu] \n",err,SOCK_INODE(sock)->i_ino,SOCK_INODE(newsock)->i_ino);
+	        //printk(KERN_INFO "[mtk_net][socket]socket_accept:fd=%d,server_sock[%lu], newsock[%lu] \n",err,SOCK_INODE(sock)->i_ino,SOCK_INODE(newsock)->i_ino);
 	        #endif
 	    }  
 	    

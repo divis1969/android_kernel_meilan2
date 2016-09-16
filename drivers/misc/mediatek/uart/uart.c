@@ -2076,7 +2076,7 @@ static void mtk_uart_set_termios(struct uart_port *port,
         printk(KERN_NOTICE "MTK Software Flow Control\n");
         mode = UART_FC_SW;
     } else if (termios->c_iflag & (IXON | IXOFF | IXANY)) {
-        printk(KERN_NOTICE "Linux default SW Flow Control\n");
+        //printk(KERN_NOTICE "Linux default SW Flow Control\n");
         mode = UART_FC_NONE;    
     } else {
         printk(KERN_NOTICE "No Flow Control\n");

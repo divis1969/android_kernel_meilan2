@@ -984,10 +984,10 @@ static int init_vcorefs_pwrctrl(void)
 
 	__update_vcore_pdn(opp_ctrl_table);
 
-	vcorefs_crit("[%s] HPM   : %u (0x%x)\n", __func__, opp_ctrl_table[OPP_0].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPP_0].vcore_uv));
-	vcorefs_crit("[%s] TRANS2: %u (0x%x)\n", __func__, trans[TRANS2], vcore_uv_to_pmic(trans[TRANS2]));
-	vcorefs_crit("[%s] TRANS1: %u (0x%x)\n", __func__, trans[TRANS1], vcore_uv_to_pmic(trans[TRANS1]));
-	vcorefs_crit("[%s] LPM   : %u (0x%x)\n", __func__, opp_ctrl_table[OPP_1].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPP_1].vcore_uv));
+	//vcorefs_crit("[%s] HPM   : %u (0x%x)\n", __func__, opp_ctrl_table[OPP_0].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPP_0].vcore_uv));
+	//vcorefs_crit("[%s] TRANS2: %u (0x%x)\n", __func__, trans[TRANS2], vcore_uv_to_pmic(trans[TRANS2]));
+	//vcorefs_crit("[%s] TRANS1: %u (0x%x)\n", __func__, trans[TRANS1], vcore_uv_to_pmic(trans[TRANS1]));
+	//vcorefs_crit("[%s] LPM   : %u (0x%x)\n", __func__, opp_ctrl_table[OPP_1].vcore_uv, vcore_uv_to_pmic(opp_ctrl_table[OPP_1].vcore_uv));
         mutex_unlock(&vcorefs_mutex);
 
         return PASS;

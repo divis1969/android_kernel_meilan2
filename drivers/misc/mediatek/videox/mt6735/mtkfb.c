@@ -1645,11 +1645,22 @@ struct compat_fb_overlay_layer {
 #define COMPAT_MTKFB_TRIG_OVERLAY_OUT                 	MTK_IO(1)
 #define COMPAT_MTKFB_SET_VIDEO_LAYERS                 	MTK_IOW(2, struct compat_fb_overlay_layer)
 
-#define COMPAT_MTKFB_CAPTURE_FRAMEBUFFER              	MTK_IOW(3, compat_ulong_t)
-#define COMPAT_MTKFB_CONFIG_IMMEDIATE_UPDATE          	MTK_IOW(4, compat_ulong_t)
+//#define COMPAT_MTKFB_CAPTURE_FRAMEBUFFER              	MTK_IOW(3, compat_ulong_t)
+//#define COMPAT_MTKFB_CONFIG_IMMEDIATE_UPDATE          	MTK_IOW(4, compat_ulong_t)
 
-#define COMPAT_MTKFB_GET_POWERSTATE 					MTK_IOR(21, compat_ulong_t)
-#define COMPAT_MTKFB_META_RESTORE_SCREEN              	MTK_IOW(101, compat_ulong_t)
+//#define COMPAT_MTKFB_GET_POWERSTATE 					MTK_IOR(21, compat_ulong_t)
+//#define COMPAT_MTKFB_META_RESTORE_SCREEN              	MTK_IOW(101, compat_ulong_t)
+
+#define MTKFB_GET_POWERSTATE_32                 MTK_IOR(21, unsigned int)
+#define MTKFB_CAPTURE_FRAMEBUFFER_32            MTK_IOW(3, unsigned int)
+#define MTKFB_CONFIG_IMMEDIATE_UPDATE_32        MTK_IOW(4, unsigned int)
+
+#define MTKFB_GET_DEFAULT_UPDATESPEED_32        MTK_IOR(17, unsigned int)
+#define MTKFB_GET_CURR_UPDATESPEED_32           MTK_IOR(18, unsigned int)
+#define MTKFB_CHANGE_UPDATESPEED_32             MTK_IOW(19, unsigned int)
+#define MTKFB_AEE_LAYER_EXIST_32                MTK_IOR(23, unsigned int)
+#define MTKFB_FACTORY_AUTO_TEST_32              MTK_IOR(25, unsigned int)
+#define MTKFB_META_RESTORE_SCREEN_32            MTK_IOW(101, unsigned int)
 
 static void compat_convert(struct compat_fb_overlay_layer *compat_info, struct fb_overlay_layer *info)
 {
@@ -1688,45 +1699,77 @@ static void compat_convert(struct compat_fb_overlay_layer *compat_info, struct f
 static long mtkfb_compat_ioctl(struct fb_info *info, unsigned int cmd, unsigned long arg)
 {
 	struct fb_overlay_layer layerInfo;
-    long ret = 0;
+	long ret = 0;
 
-    printk("[FB Driver] mtkfb_compat_ioctl, cmd=0x%08x, cmd nr=0x%08x, cmd size=0x%08x\n", cmd, 
-        (unsigned int)_IOC_NR(cmd), (unsigned int)_IOC_SIZE(cmd));
+	printk("[FB Driver] mtkfb_compat_ioctl, cmd=0x%08x, cmd nr=0x%08x, cmd size=0x%08x\n", cmd, 
+		(unsigned int)_IOC_NR(cmd), (unsigned int)_IOC_SIZE(cmd));
 
-    switch(cmd)
-    {
-		case COMPAT_MTKFB_GET_POWERSTATE:
-		{
-			compat_uint_t __user *data32;
-			int power_state = 0;
-            
-			data32 = compat_ptr(arg);   
-			if(primary_display_is_sleepd())
-			    power_state = 0;
-			else
-			    power_state = 1;
-			if (put_user(power_state, data32))
-            {
-			    printk("MTKFB_GET_POWERSTATE failed\n");
-			    ret = -EFAULT;
-			}
-			printk("MTKFB_GET_POWERSTATE success %d\n",power_state);
-			break;
-		}
+#define FORWARD_IOCTL(name) \
+	case name##_32: \
+		return mtkfb_ioctl(info, name, arg);
 
-		case COMPAT_MTKFB_CAPTURE_FRAMEBUFFER:
-        {
-              compat_ulong_t __user *data32; 
-              unsigned long  *pbuf; 
-              compat_ulong_t l;
-              
-              data32 = compat_ptr(arg);
-              pbuf = compat_alloc_user_space(sizeof(unsigned long));
-              ret = get_user(l, data32);
-              ret |= put_user(l, pbuf);
-              primary_display_capture_framebuffer_ovl(*pbuf, eBGRA8888);
-              break;
-        }
+	switch(cmd)
+	{
+		FORWARD_IOCTL(MTKFB_GET_POWERSTATE)
+		FORWARD_IOCTL(MTKFB_CAPTURE_FRAMEBUFFER)
+		FORWARD_IOCTL(MTKFB_CONFIG_IMMEDIATE_UPDATE)
+		FORWARD_IOCTL(MTKFB_GET_DEFAULT_UPDATESPEED)
+	 	FORWARD_IOCTL(MTKFB_GET_CURR_UPDATESPEED)
+	 	FORWARD_IOCTL(MTKFB_CHANGE_UPDATESPEED)
+	 	FORWARD_IOCTL(MTKFB_AEE_LAYER_EXIST)
+	 	FORWARD_IOCTL(MTKFB_FACTORY_AUTO_TEST)
+	 	FORWARD_IOCTL(MTKFB_META_RESTORE_SCREEN)
+
+		case MTKFB_LOCK_FRONT_BUFFER:
+		case MTKFB_UNLOCK_FRONT_BUFFER:
+		case MTKFB_GET_FRAMEBUFFER_MVA:
+		case MTKFB_POWEROFF:
+		case MTKFB_POWERON:
+		case MTKFB_GET_DISPLAY_IF_INFORMATION:
+		case MTKFB_SLT_AUTO_CAPTURE:
+
+#ifdef MTK_FB_OVERLAY_SUPPORT
+		case MTKFB_GET_OVERLAY_LAYER_INFO:
+		case MTKFB_SET_OVERLAY_LAYER:
+		case MTKFB_ERROR_INDEX_UPDATE_TIMEOUT:
+		case MTKFB_ERROR_INDEX_UPDATE_TIMEOUT_AEE:
+		case MTKFB_SET_VIDEO_LAYERS:
+		case MTKFB_TRIG_OVERLAY_OUT:
+#endif // MTK_FB_OVERLAY_SUPPORT
+			return mtkfb_ioctl(info, cmd, arg);
+
+//		case COMPAT_MTKFB_GET_POWERSTATE:
+//		{
+//			compat_uint_t __user *data32;
+//			int power_state = 0;
+//            
+//			data32 = compat_ptr(arg);   
+//			if(primary_display_is_sleepd())
+//			    power_state = 0;
+//			else
+//			    power_state = 1;
+//			if (put_user(power_state, data32))
+//            {
+//			    printk("MTKFB_GET_POWERSTATE failed\n");
+//			    ret = -EFAULT;
+//			}
+//			printk("MTKFB_GET_POWERSTATE success %d\n",power_state);
+//			break;
+//		}
+//
+//		case COMPAT_MTKFB_CAPTURE_FRAMEBUFFER:
+//        {
+//              compat_ulong_t __user *data32; 
+//              unsigned long  *pbuf; 
+//              compat_ulong_t l;
+//              
+//              data32 = compat_ptr(arg);
+//              pbuf = compat_alloc_user_space(sizeof(unsigned long));
+//              ret = get_user(l, data32);
+//              ret |= put_user(l, pbuf);
+//              primary_display_capture_framebuffer_ovl(*pbuf, eBGRA8888);
+//              break;
+//        }
 
 		case COMPAT_MTKFB_TRIG_OVERLAY_OUT:
 		{
@@ -1735,12 +1778,12 @@ static long mtkfb_compat_ioctl(struct fb_info *info, unsigned int cmd, unsigned 
 			break;
 		}
 
-		case COMPAT_MTKFB_META_RESTORE_SCREEN:
-		{
-			arg = (unsigned long) compat_ptr(arg);
-			ret = mtkfb_ioctl(info, MTKFB_META_RESTORE_SCREEN, arg);
-			break;
-		}		
+//		case COMPAT_MTKFB_META_RESTORE_SCREEN:
+//		{
+//			arg = (unsigned long) compat_ptr(arg);
+//			ret = mtkfb_ioctl(info, MTKFB_META_RESTORE_SCREEN, arg);
+//			break;
+//		}		
 
 		case COMPAT_MTKFB_SET_OVERLAY_LAYER:
 		{

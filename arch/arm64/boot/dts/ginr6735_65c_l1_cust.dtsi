@@ -304,6 +304,11 @@
 		reg = <0x30>;
 		status = "okay";
 	};
+	mag1:qmcX983@2c {
+		compatible = "mediatek,qmcX983";
+		reg = <0x2c>;
+		status = "okay";
+	};
 	alsps0:alsps@49 {
 		compatible = "mediatek,epl2182";
 		reg = <0x49>;

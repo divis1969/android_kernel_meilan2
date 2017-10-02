@@ -49,6 +49,7 @@ obj-$(CONFIG_MTK_MMC328XMA)	+=  mmc328xma/
 obj-$(CONFIG_MTK_MMC3416X)	+=  mmc3416x/
 obj-$(CONFIG_MTK_MMC3524X)	+=  mmc3524x/
 obj-$(CONFIG_MTK_QMC5983)	+=  qmc5983/
+obj-$(CONFIG_MTK_QMCX983)   +=  qmcX983/
 obj-$(CONFIG_MTK_S62X)	+=  s62x/
 obj-$(CONFIG_MTK_ST480)	+=  st480/
 obj-$(CONFIG_MTK_YAS529)	+=  yamaha529/

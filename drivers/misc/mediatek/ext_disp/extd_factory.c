@@ -4,9 +4,9 @@
 #include "extd_log.h"
 #include "extd_factory.h"
 #include "extd_info.h"
-#include "external_display.h"
+#include "mt6735/external_display.h"
 
-#include "dpi_dvt_test.h"
+#include "common/test/dpi_dvt_test.h"
 
 #if defined(CONFIG_MTK_HDMI_SUPPORT)
 static struct HDMI_DRIVER *hdmi_tx_drv;

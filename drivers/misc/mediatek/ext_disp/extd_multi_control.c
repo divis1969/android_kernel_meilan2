@@ -3,10 +3,10 @@
 
 #include "extd_multi_control.h"
 #include "disp_drv_platform.h"
-#include "external_display.h"
-#include "extd_platform.h"
+#include "mt6735/external_display.h"
+#include "mt6735/extd_platform.h"
 #include "extd_log.h"
-#include "mtk_ovl.h"
+#include "../video/mt6735/videox/mtk_ovl.h"
 
 static const struct EXTD_DRIVER  *extd_driver[DEV_MAX_NUM-1];
 static struct SWITCH_MODE_INFO_STRUCT path_info;

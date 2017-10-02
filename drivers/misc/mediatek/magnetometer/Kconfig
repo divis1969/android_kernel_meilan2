@@ -22,3 +22,4 @@ config CUSTOM_KERNEL_MAGNETOMETER
 source "drivers/misc/mediatek/magnetometer/af7133-new/Kconfig"
 source "drivers/misc/mediatek/magnetometer/af8133-new/Kconfig"
 source "drivers/misc/mediatek/magnetometer/mmc3524x/Kconfig"
+source "drivers/misc/mediatek/magnetometer/qmcX983/Kconfig"

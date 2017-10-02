@@ -1,8 +1,8 @@
 #ifndef __DISP_DRV_LOG_H__
 #define __DISP_DRV_LOG_H__
-#include "display_recorder.h"
-#include "ddp_debug.h"
-#include "disp_drv_platform.h"
+#include "../dispsys/display_recorder.h"
+#include "../dispsys/ddp_debug.h"
+#include "mt6735/disp_drv_platform.h"
 
 extern unsigned int dprec_error_log_len;
 extern unsigned int dprec_error_log_id;

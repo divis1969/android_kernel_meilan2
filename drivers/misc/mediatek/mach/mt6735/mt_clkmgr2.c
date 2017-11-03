@@ -597,7 +597,7 @@ static void sdm_pll_enable_op(struct pll *pll)
 {
 #ifdef PLL_LOG
     //clk_info("[%s]: pll->name=%s\n", __func__, pll->name);
-    clk_dbg("[%s]: pll->name=%s\n", __func__, pll->name);
+    //clk_dbg("[%s]: pll->name=%s\n", __func__, pll->name);
 #endif
 //    if( pll->base_addr == UNIVPLL_CON0 /*|| pll->base_addr == VENCPLL_CON0*/)
 //    {
@@ -621,7 +621,7 @@ static void sdm_pll_disable_op(struct pll *pll)
 {
 #ifdef PLL_LOG
     //clk_info("[%s]: pll->name=%s\n", __func__, pll->name);
-    clk_dbg("[%s]: pll->name=%s\n", __func__, pll->name);
+    //clk_dbg("[%s]: pll->name=%s\n", __func__, pll->name);
 #endif
 //    if( pll->base_addr == UNIVPLL_CON0 /*|| pll->base_addr == VENCPLL_CON0*/)
 //    {
